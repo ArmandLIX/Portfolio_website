@@ -482,91 +482,197 @@
       </div>
     </div>
 
-    <!-- ════ PROJECT 2 ════ -->
+ <!-- ════ PROJECT: minishell_2 ════ -->
     <div class="project-card fade-in">
       <div class="project-header">
-        <h3 class="project-title">BSQ (Biggest Square)</h3>
+        <h3 class="project-title">minishell_2</h3>
         <div class="project-tags">
           <span class="tag">C</span>
-          <span class="tag">Performance</span>
-          <span class="tag">Dynamic Programming</span>
-          <span class="tag">O(N)</span>
+          <span class="tag">Unix API</span>
+          <span class="tag">Processus</span>
+          <span class="tag">Architecture</span>
         </div>
       </div>
-      <p class="project-subtitle">Dynamic Tabulation Solver</p>
+      <p class="project-subtitle">Custom Unix Shell Interpreter</p>
       <p class="project-desc">
-        A high-performance C algorithm designed to locate the largest empty square in
-        obstacle-filled grids. Using a single-pass Dynamic Programming tabulation in O(N),
-        it processes massive 10,000×10,000 grids in milliseconds with highly optimized memory management.
+        A complete command-line interpreter reproducing core Unix shell functionalities. Built in C, 
+        it features advanced process management, logical operators (&&, ||), pipes (|), complex 
+        redirections (>, >>, <, <<), and built-in command management with rigorous error handling.
       </p>
 
       <p class="pipeline-label">Execution Pipeline</p>
       <div class="pipeline">
         <div class="pipeline-step">
           <p class="step-num">01</p>
-          <p class="step-name">Parse Grid</p>
-          <p class="step-desc">Read obstacle map</p>
+          <p class="step-name">Lexing & Parsing</p>
+          <p class="step-desc">Tokenize user command line</p>
         </div>
         <div class="pipeline-step">
           <p class="step-num">02</p>
-          <p class="step-name">DP Table</p>
-          <p class="step-desc">Single-pass tabulation</p>
+          <p class="step-name">AST Build</p>
+          <p class="step-desc">Construct execution tree</p>
         </div>
         <div class="pipeline-step">
           <p class="step-num">03</p>
-          <p class="step-name">Max Square</p>
-          <p class="step-desc">Track running maximum</p>
+          <p class="step-name">Fork & Pipe</p>
+          <p class="step-desc">Manage redirections & IPC</p>
         </div>
         <div class="pipeline-step">
           <p class="step-num">04</p>
-          <p class="step-name">Output</p>
-          <p class="step-desc">Print result grid</p>
+          <p class="step-name">Execute</p>
+          <p class="step-desc">Run builtins or execve</p>
         </div>
       </div>
 
       <div class="project-footer">
-        <a href="https://github.com/yourusername/bsq" target="_blank" class="btn-github">
+        <a href="https://github.com/ArmandLIX/MY_minishell" target="_blank" class="btn-github">
           ⬡ View on GitHub
         </a>
       </div>
     </div>
 
-    <!-- ════ PROJECT 3 — TEMPLATE, duplicate this block ════ -->
+    <!-- ════ PROJECT: My_radar ════ -->
     <div class="project-card fade-in">
       <div class="project-header">
-        <h3 class="project-title">My New Project</h3>
+        <h3 class="project-title">My_radar</h3>
         <div class="project-tags">
-          <span class="tag">React</span>
-          <span class="tag">TypeScript</span>
+          <span class="tag">C</span>
+          <span class="tag">CSFML</span>
+          <span class="tag">Quadtree</span>
+          <span class="tag">2D Simulation</span>
         </div>
       </div>
-      <p class="project-subtitle">Short catchy subtitle</p>
+      <p class="project-subtitle">Air Traffic Control Simulator</p>
       <p class="project-desc">
-        ✏️ Write your project description here. What problem does it solve? What are
-        the interesting technical challenges? What's the performance or impact?
+        A dynamic 2D air traffic simulation rendering hundreds of aircraft and control towers in real-time. 
+        Powered by CSFML, it implements a highly optimized Quadtree spatial partitioning algorithm to 
+        reduce collision-detection complexity from O(N²) to O(N log N).
       </p>
 
       <p class="pipeline-label">Execution Pipeline</p>
       <div class="pipeline">
         <div class="pipeline-step">
           <p class="step-num">01</p>
-          <p class="step-name">Step One</p>
-          <p class="step-desc">Brief description</p>
+          <p class="step-name">Parse Script</p>
+          <p class="step-desc">Load aircraft & tower data</p>
         </div>
         <div class="pipeline-step">
           <p class="step-num">02</p>
-          <p class="step-name">Step Two</p>
-          <p class="step-desc">Brief description</p>
+          <p class="step-name">Quadtree Build</p>
+          <p class="step-desc">Subdivide 2D workspace</p>
         </div>
         <div class="pipeline-step">
           <p class="step-num">03</p>
-          <p class="step-name">Step Three</p>
-          <p class="step-desc">Brief description</p>
+          <p class="step-name">Collision Update</p>
+          <p class="step-desc">Check intersections</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">04</p>
+          <p class="step-name">Render</p>
+          <p class="step-desc">Draw sprites and hitboxes</p>
         </div>
       </div>
 
       <div class="project-footer">
-        <a href="https://github.com/yourusername/project" target="_blank" class="btn-github">
+        <a href="https://github.com/ArmandLIX/MY_radar" target="_blank" class="btn-github">
+          ⬡ View on GitHub
+        </a>
+      </div>
+    </div>
+
+    <!-- ════ PROJECT: My_mouli ════ -->
+    <div class="project-card fade-in">
+      <div class="project-header">
+        <h3 class="project-title">My_mouli</h3>
+        <div class="project-tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">Automation</span>
+          <span class="tag">Testing</span>
+        </div>
+      </div>
+      <p class="project-subtitle">Automated Testing Framework</p>
+      <p class="project-desc">
+        A custom unit-testing and code style analysis tool built specifically to mirror Epitech's automated 
+        grading system. It runs local test suites, checks formatting guidelines, monitors memory leaks, 
+        and generates precise reports to bulletproof code before delivery.
+      </p>
+
+      <p class="pipeline-label">Execution Pipeline</p>
+      <div class="pipeline">
+        <div class="pipeline-step">
+          <p class="step-num">01</p>
+          <p class="step-name">Linter Scan</p>
+          <p class="step-desc">Check Epitech code style</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">02</p>
+          <p class="step-name">Compilation</p>
+          <p class="step-desc">Build workspace via Makefile</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">03</p>
+          <p class="step-name">Test Runner</p>
+          <p class="step-desc">Inject inputs & catch outputs</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">04</p>
+          <p class="step-name">Logs Report</p>
+          <p class="step-desc">Output summary & crash diffs</p>
+        </div>
+      </div>
+
+      <div class="project-footer">
+        <a href="https://github.com/ArmandLIX/My_mouli" target="_blank" class="btn-github">
+          ⬡ View on GitHub
+        </a>
+      </div>
+    </div>
+
+    <!-- ════ PROJECT: Epytodo ════ -->
+    <div class="project-card fade-in">
+      <div class="project-header">
+        <h3 class="project-title">Epytodo</h3>
+        <div class="project-tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">REST API</span>
+          <span class="tag">Express</span>
+        </div>
+      </div>
+      <p class="project-subtitle">Full-Stack Task Management Web Application</p>
+      <p class="project-desc">
+        A secure web ecosystem engineered for productivity tracking. Features a robust backend REST API built 
+        with Express and MySQL for relational data persistence, combined with an intuitive web front-end 
+        handling user registration, JWT authentication, and interactive task monitoring.
+      </p>
+
+      <p class="pipeline-label">Execution Pipeline</p>
+      <div class="pipeline">
+        <div class="pipeline-step">
+          <p class="step-num">01</p>
+          <p class="step-name">Auth / JWT</p>
+          <p class="step-desc">Secure registration & login</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">02</p>
+          <p class="step-name">API Request</p>
+          <p class="step-desc">Route handling & middleware</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">03</p>
+          <p class="step-name">SQL Query</p>
+          <p class="step-desc">CRUD actions on database</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">04</p>
+          <p class="step-name">UI Render</p>
+          <p class="step-desc">Dynamic task status update</p>
+        </div>
+      </div>
+
+      <div class="project-footer">
+        <a href="https://github.com/ArmandLIX/Epytodo" target="_blank" class="btn-github">
           ⬡ View on GitHub
         </a>
       </div>
