@@ -11,13 +11,13 @@
      ✏️  DESIGN TOKENS — Matrix Terminal Edition
      ============================================= */
   :root {
-    --bg:        #050505;
-    --surface:   #0f0f0f;
-    --border:    #1a3a2a; /* Lignes vertes sombres */
-    --accent:    #00ff9d; /* Vert Matrix brillant */
+    --bg:        #030704;
+    --surface:   #090f0c;
+    --border:    #122d1e; 
+    --accent:    #00ff9d; 
     --accent-dim:#005c38;
     --text:      #d1f7e8;
-    --muted:     #5c7a6e;
+    --muted:     #4a665a;
     --mono:      'Space Mono', monospace;
     --sans:      'Syne', sans-serif;
   }
@@ -32,9 +32,42 @@
     font-size: 16px;
     line-height: 1.6;
     overflow-x: hidden;
+    position: relative;
   }
   a { color: inherit; text-decoration: none; }
   img { display: block; max-width: 100%; }
+
+  /* ============ REAL TERMINAL BACKGROUND EFFECT ============ */
+  /* Ce calque simule l'écran d'ordinateur en arrière-plan avec effet parallaxe */
+  .terminal-parallax-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 2000px;
+    z-index: -2;
+    opacity: 0.15;
+    pointer-events: none;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--accent);
+    line-height: 1.2;
+    padding: 2rem;
+    overflow: hidden;
+    will-change: transform;
+    background: 
+      linear-gradient(rgba(18, 45, 30, 0.1) 1px, transparent 1px) 0 0 / 20px 20px,
+      linear-gradient(90deg, rgba(18, 45, 30, 0.1) 1px, transparent 1px) 0 0 / 20px 20px;
+  }
+
+  /* Effet de lignes cathodiques (Scanlines CRT) sur tout l'écran */
+  body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 999;
+    background-size: 100% 3px, 6px 100%;
+    pointer-events: none;
+  }
 
   /* ============ NAVBAR ============ */
   nav {
@@ -42,7 +75,7 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 0 2.5rem;
     height: 56px;
-    background: rgba(5,5,5,0.9);
+    background: rgba(3, 7, 4, 0.9);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
@@ -65,20 +98,20 @@
   .nav-links a:hover { color: var(--accent); }
 
   /* ============ SECTIONS ============ */
-  section { padding: 6rem 2.5rem; max-width: 1200px; margin: 0 auto; }
-  section:first-of-type { padding-top: 9rem; }
+  section { padding: 6rem 2.5rem; max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+  section:first-of-type { padding-top: 11rem; }
 
-  /* ============ HERO (TERMINAL PARALLAX) ============ */
+  /* ============ HERO (MULTILAYER PARALLAX) ============ */
   .hero { display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: start; }
   
-  /* L'ambiance de terminal qui va bouger au scroll */
   .terminal-frame {
-    background: #020b06;
+    background: rgba(5, 12, 8, 0.85);
     border: 1px solid var(--border);
     padding: 2rem;
     position: relative;
-    box-shadow: 0 0 20px rgba(0, 255, 157, 0.05);
+    box-shadow: 0 0 30px rgba(0, 255, 157, 0.03);
     will-change: transform;
+    backdrop-filter: blur(4px);
   }
   .terminal-header {
     font-family: var(--mono);
@@ -133,9 +166,8 @@
   .hero-photo {
     width: 200px; height: 200px;
     border-radius: 4px;
-    border: 1px solid var(--accent);
+    border: 1px solid var(--border);
     object-fit: cover;
-    filter: grayscale(30%) sepia(20%) hue-rotate(85deg); /* Effet moniteur vert */
   }
 
   /* ============ TRAIT CARDS ============ */
@@ -190,7 +222,7 @@
   }
   .stack-item:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,255,157,0.02); }
 
-  /* ============ PROJECTS CAROUSEL WITH EXPANDABLE IMAGES ============ */
+  /* ============ PROJECTS CAROUSEL (CENTERED ELEMENT & VISIBLE FLANCS) ============ */
   .carousel-controls {
     display: flex; justify-content: flex-end; gap: 1rem; margin-bottom: 1.5rem;
   }
@@ -200,33 +232,55 @@
   }
   .btn-nav:hover { background: var(--accent); color: #000; }
 
-  .carousel-container { width: 100%; overflow: hidden; }
+  .carousel-container { 
+    width: 100vw; 
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    overflow: hidden; 
+  }
+  
   .projects-carousel {
-    display: flex; gap: 2rem; overflow-x: auto;
-    scroll-snap-type: x mandatory; scrollbar-width: none;
-    padding-bottom: 1rem;
+    display: flex; 
+    gap: 2rem; 
+    overflow-x: auto;
+    scroll-snap-type: x mandatory; 
+    scrollbar-width: none;
+    padding: 1rem 20vw; 
   }
   .projects-carousel::-webkit-scrollbar { display: none; }
   
   .project-card {
-    flex: 0 0 calc(100% - 1rem); scroll-snap-align: start;
-    background: var(--surface); border: 1px solid var(--border);
-    padding: 2rem; display: flex; flex-direction: column; justify-between: space-between;
+    flex: 0 0 60vw; 
+    scroll-snap-align: center; 
+    background: var(--surface); 
+    border: 1px solid var(--border);
+    padding: 2rem; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between;
+    transition: transform 0.3s, border-color 0.3s;
   }
-  @media (min-width: 768px) { .project-card { flex: 0 0 calc(50% - 1rem); } }
   
-  /* Visual Container inside card */
+  @media (max-width: 768px) {
+    .projects-carousel { padding: 1rem 10vw; }
+    .project-card { flex: 0 0 80vw; }
+  }
+  
   .project-visual-preview {
-    width: 100%; height: 140px; background: #05140b;
+    width: 100%; height: 180px; background: #020704;
     border: 1px dashed var(--border); margin-bottom: 1.5rem;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden; position: relative; cursor: pointer;
   }
   .project-visual-preview img {
-    width: 100%; height: 100%; object-fit: cover; opacity: 0.4;
-    transition: opacity 0.3s;
+    width: 100%; height: 100%; object-fit: cover; opacity: 0.7;
+    transition: opacity 0.3s, transform 0.3s;
   }
-  .project-visual-preview:hover img { opacity: 0.8; }
+  .project-visual-preview:hover img { opacity: 1; transform: scale(1.02); }
+  
   .visual-overlay-text {
     position: absolute; font-family: var(--mono); font-size: 0.6rem;
     color: var(--accent); border: 1px solid var(--accent); padding: 0.3rem 0.6rem;
@@ -240,11 +294,11 @@
   .project-desc { color: var(--muted); font-size: .85rem; margin-bottom: 1.5rem; }
 
   .project-footer { display: flex; justify-content: flex-end; gap: 1rem; margin-top: auto; }
-  .btn-github, .btn-expand {
+  .btn-expand {
     font-family: var(--mono); font-size: .65rem; padding: .55rem 1.2rem;
     border: 1px solid var(--border); color: var(--text); cursor: pointer;
   }
-  .btn-github:hover, .btn-expand:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-expand:hover { border-color: var(--accent); color: var(--accent); }
 
   /* ============ CONTACT ============ */
   .contact-wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; border-top: 1px solid var(--border); padding-top: 4rem; }
@@ -254,10 +308,10 @@
   .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
   .contact-email { font-family: var(--mono); font-size: .7rem; color: var(--accent); border: 1px solid var(--accent); padding: .55rem 1.1rem; }
 
-  /* ============ MODAL SYSTEM (IMAGE EXPAND) ============ */
+  /* ============ MODAL SYSTEM ============ */
   .modal-overlay {
     position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(3, 10, 6, 0.95); backdrop-filter: blur(8px);
+    background: rgba(3, 7, 4, 0.95); backdrop-filter: blur(8px);
     z-index: 200; display: flex; align-items: center; justify-content: center;
     opacity: 0; pointer-events: none; transition: opacity .3s ease;
   }
@@ -288,7 +342,34 @@
 </head>
 <body>
 
-<!-- NAVBAR -->
+<div class="terminal-parallax-bg" id="terminal-bg-layer">
+  #include &lt;unistd.h&gt;<br>
+  #include &lt;stdlib.h&gt;<br>
+  // Epitech project kernel config v2.0.26<br>
+  void core_dump_analyzer(char **env)<br>
+  {<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;int pid = fork();<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;if (pid == 0) {<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;execve("/bin/sh", env, NULL);<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+  }<br>
+  // Monitoring ports... OK<br>
+  // Location matched: Barcelona, ESP<br>
+  // Internship search: Active (4 Months)<br>
+  // Target_Frame: Clean code architectures<br>
+  // Loading modules... Done.<br>
+  #define BUFFER_SIZE 4096<br>
+  #define STATUS_OK 1<br>
+  <br>
+  armand@lixon:~$ systemctl status portfolio.service<br>
+  ● portfolio.service - Armand Lixon Professional Interface<br>
+  &nbsp;&nbsp;&nbsp;Loaded: loaded (/etc/systemd/system/portfolio.service; enabled;)<br>
+  &nbsp;&nbsp;&nbsp;Active: active (running) since Mon 2026-06-01<br>
+  &nbsp;&nbsp;&nbsp;Main PID: 4423 (node)<br>
+  &nbsp;&nbsp;&nbsp;Tasks: 12 (limit: 4915)<br>
+  &nbsp;&nbsp;&nbsp;CGroup: /system.slice/portfolio.service<br>
+</div>
+
 <nav>
   <span class="nav-logo">armand@lixon:~$_</span>
   <div class="nav-links">
@@ -299,10 +380,8 @@
   </div>
 </nav>
 
-<!-- HERO SECTION (Parallax System Core) -->
 <section id="about">
   <div class="hero fade-in">
-    <!-- Le terminal qui glissera de manière asynchrone -->
     <div class="terminal-frame" id="parallax-terminal">
       <div class="terminal-header">
         <span>sys_status.sh</span>
@@ -320,13 +399,11 @@
       </p>
     </div>
 
-    <!-- La photo qui bougera sur une autre amplitude -->
     <div class="hero-photo-wrap" id="parallax-photo">
       <img class="hero-photo" src="https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png" alt="Armand Lixon" />
     </div>
   </div>
 
-  <!-- Trait cards -->
   <div class="traits fade-in">
     <div class="trait-card">
       <p class="trait-title">Unix &amp; C Systems</p>
@@ -343,7 +420,6 @@
   </div>
 </section>
 
-<!-- TECH STACK -->
 <section id="stack">
   <h2 class="section-heading fade-in">Tech Stack</h2>
   <div class="stack-grid fade-in">
@@ -363,7 +439,6 @@
   </div>
 </section>
 
-<!-- PROJECTS (Carousel + Expand Image Modals) -->
 <section id="projects">
   <h2 class="section-heading fade-in">Systems &amp; Algorithmic Projects</h2>
 
@@ -375,9 +450,7 @@
   <div class="carousel-container fade-in">
     <div class="projects-carousel" id="carousel">
 
-      <!-- PROJECT 1 -->
       <div class="project-card">
-        <!-- Conteneur d'image cliquable pour étendre -->
         <div class="project-visual-preview" onclick="expandProject('A-maze-d', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Architecture analysis of pathfinding modules. Multi-robot deployment running a reverse Breadth-First-Search calculation to isolate grid steps and bypass collision loops.')">
           <img src="https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png" alt="A-maze-d visual" />
           <div class="visual-overlay-text">⬡ EXPAND VISUAL</div>
@@ -393,7 +466,6 @@
         </div>
       </div>
 
-      <!-- PROJECT 2 -->
       <div class="project-card">
         <div class="project-visual-preview" onclick="expandProject('minishell_2', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Custom Unix shell kernel tracking tree nodes. Supports parsing arrays, pipes logic redirection, and asynchronous tracking protocols across process nodes.')">
           <img src="https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png" alt="minishell visual" />
@@ -410,7 +482,6 @@
         </div>
       </div>
 
-      <!-- PROJECT 3 -->
       <div class="project-card">
         <div class="project-visual-preview" onclick="expandProject('My_radar', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Real-time spatial distribution model using Quadtree grids to compress complex object maps from native O(N2) limits down to O(N log N) rendering structures.')">
           <img src="https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png" alt="My_radar visual" />
@@ -427,45 +498,10 @@
         </div>
       </div>
 
-      <!-- PROJECT 4 -->
-      <div class="project-card">
-        <div class="project-visual-preview" onclick="expandProject('My_mouli', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Automated workspace scanning structure looking for formatting rule breaks, active code style warnings, memory leakage logs, and testing outputs.')">
-          <img src="https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png" alt="My_mouli visual" />
-          <div class="visual-overlay-text">⬡ EXPAND VISUAL</div>
-        </div>
-        <div class="project-header">
-          <h3 class="project-title">My_mouli</h3>
-          <div><span class="tag">JS</span><span class="tag">Node</span></div>
-        </div>
-        <p class="project-subtitle">Automated Testing Framework</p>
-        <p class="project-desc">Automation script matching workspace checks to protect software builds before delivery steps.</p>
-        <div class="project-footer">
-          <button class="btn-expand" onclick="expandProject('My_mouli', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Automated workspace scanning structure looking for formatting rule breaks, active code style warnings, memory leakage logs, and testing outputs.')">Expand</button>
-        </div>
-      </div>
-
-      <!-- PROJECT 5 -->
-      <div class="project-card">
-        <div class="project-visual-preview" onclick="expandProject('Epytodo Ecosystem', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Defensive design pattern overview. Implements safe JWT verification steps, database-level isolation policies, and password protection algorithms preventing data spoofing.')">
-          <img src="https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png" alt="Epytodo visual" />
-          <div class="visual-overlay-text">⬡ EXPAND VISUAL</div>
-        </div>
-        <div class="project-header">
-          <h3 class="project-title">Epytodo</h3>
-          <div><span class="tag">Node</span><span class="tag">MySQL</span></div>
-        </div>
-        <p class="project-subtitle">Full-Stack Secure Task Management</p>
-        <p class="project-desc">Ecosystem securing databases with credential cryptography layers and strict access rules.</p>
-        <div class="project-footer">
-          <button class="btn-expand" onclick="expandProject('Epytodo Ecosystem', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Defensive design pattern overview. Implements safe JWT verification steps, database-level isolation policies, and password protection algorithms preventing data spoofing.')">Expand</button>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="contact-wrap fade-in">
     <div>
@@ -482,7 +518,6 @@
   </div>
 </section>
 
-<!-- IMAGE EXPAND GLOBAL MODAL SYSTEM -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal-box">
     <button class="modal-close" onclick="setModalState(false)">[ CLOSE X ]</button>
@@ -497,40 +532,50 @@
 </footer>
 
 <script>
-  // Fade-in element monitoring
+  // Fade-in trigger system
   const observer = new IntersectionObserver(
     (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
     { threshold: 0.1 }
   );
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  // 1. TERMINAL & PHOTO ASYNC PARALLAX SCRIPT
+  // MULTILAYER PARALLAX SCRIPT (Arrière-plan Terminal + Cadre Terminal + Photo)
   window.addEventListener('scroll', () => {
     const offset = window.pageYOffset;
+    const bgLayer = document.getElementById('terminal-bg-layer');
     const terminal = document.getElementById('parallax-terminal');
     const photo = document.getElementById('parallax-photo');
     
     if (window.innerWidth > 768) {
-      // Le terminal se deplace lentement vers le bas
-      terminal.style.transform = `translateY(${offset * 0.15}px)`;
-      // La photo descend plus rapidement pour creer la rupture de parallaxe
-      photo.style.transform = `translateY(${offset * 0.28}px) rotate(2deg)`;
+      // 1. Fond lointain (vitesse très lente)
+      bgLayer.style.transform = `translateY(${offset * 0.05}px)`;
+      // 2. Le cadre du terminal (vitesse moyenne)
+      terminal.style.transform = `translateY(${offset * 0.12}px)`;
+      // 3. Ta photo au premier plan (vitesse plus élevée)
+      photo.style.transform = `translateY(${offset * 0.25}px) rotate(1deg)`;
     } else {
+      bgLayer.style.transform = 'none';
       terminal.style.transform = 'none';
       photo.style.transform = 'none';
     }
   });
 
-  // 2. HORIZONTAL SLIDER NAVIGATION
+  // CAROUSEL NAV (CENTER ALIGNED)
   const carousel = document.getElementById('carousel');
+  
   document.getElementById('nextBtn').addEventListener('click', () => {
-    carousel.scrollBy({ left: carousel.offsetWidth * 0.6, behavior: 'smooth' });
+    const cardWidth = carousel.querySelector('.project-card').offsetWidth;
+    const gap = parseFloat(getComputedStyle(carousel).gap) || 0;
+    carousel.scrollBy({ left: cardWidth + gap, behavior: 'smooth' });
   });
+  
   document.getElementById('prevBtn').addEventListener('click', () => {
-    carousel.scrollBy({ left: -carousel.offsetWidth * 0.6, behavior: 'smooth' });
+    const cardWidth = carousel.querySelector('.project-card').offsetWidth;
+    const gap = parseFloat(getComputedStyle(carousel).gap) || 0;
+    carousel.scrollBy({ left: -(cardWidth + gap), behavior: 'smooth' });
   });
 
-  // 3. IMAGE EXPAND MODAL ARCHITECTURE
+  // MODAL MANAGEMENT
   const overlay = document.getElementById('modalOverlay');
   const mTitle = document.getElementById('modalTitle');
   const mBody = document.getElementById('modalBody');
