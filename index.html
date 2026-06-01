@@ -365,6 +365,8 @@
     .hero-photo-wrap { display: none; }
     .projects-carousel { padding: 1rem 8vw 2rem; }
     .project-card { flex: 0 0 85vw; }
+    .contact-links { align-items: flex-start !important; }
+    .contact-row { flex-wrap: wrap; }
   }
 
   .project-visual-preview {
@@ -410,14 +412,16 @@
   .project-subtitle { font-family: var(--mono); font-size: .68rem; color: var(--accent-dim); margin-bottom: .9rem; letter-spacing: .06em; }
   .project-desc { color: var(--muted-bright); font-size: .875rem; margin-bottom: 1.5rem; line-height: 1.7; }
 
-  .project-footer { display: flex; justify-content: flex-end; gap: 1rem; margin-top: auto; }
-  .btn-expand {
+  /* Ajustement de la zone d'action */
+  .project-footer { display: flex; justify-content: flex-end; gap: .75rem; margin-top: auto; }
+  
+  .btn-project-link {
     font-family: var(--mono); font-size: .62rem; padding: .5rem 1.1rem;
     border: 1px solid var(--border-bright); color: var(--muted-bright);
     background: none; cursor: pointer; letter-spacing: .08em;
-    transition: all .2s;
+    transition: all .2s; display: inline-flex; align-items: center;
   }
-  .btn-expand:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow-soft); }
+  .btn-project-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow-soft); }
 
   /* ── CONTACT ── */
   .contact-wrap {
@@ -508,7 +512,6 @@
 </head>
 <body>
 
-<!-- FOND FIXE AVEC CALQUE CODE PARALLAXE -->
 <div class="terminal-parallax-bg">
   <div class="bg-code-layer" id="bg-code-layer">#include &lt;unistd.h&gt;
 #include &lt;stdlib.h&gt;
@@ -675,7 +678,8 @@ int bfs_solver(int **maze, int rows, int cols)
         <p class="project-subtitle">// Multi-Robot Pathfinding Engine</p>
         <p class="project-desc">High-performance tracking solver. Computes optimal distances via reverse BFS from exit, extracts non-overlapping paths, and prevents collisions turn-by-turn.</p>
         <div class="project-footer">
-          <button class="btn-expand" onclick="expandProject('A-maze-d', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Architecture analysis of pathfinding modules. Multi-robot deployment running a reverse Breadth-First-Search calculation to isolate grid steps and bypass collision loops.')">[ EXPAND ]</button>
+          <a href="https://github.com/votre-username/a-maze-d" target="_blank" class="btn-project-link">[ GITHUB ]</a>
+          <button class="btn-project-link" onclick="expandProject('A-maze-d', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Architecture analysis of pathfinding modules. Multi-robot deployment running a reverse Breadth-First-Search calculation to isolate grid steps and bypass collision loops.')">[ EXPAND ]</button>
         </div>
       </div>
 
@@ -691,7 +695,8 @@ int bfs_solver(int **maze, int rows, int cols)
         <p class="project-subtitle">// Custom Unix Shell Interpreter</p>
         <p class="project-desc">Command-line runtime layer supporting pipes, redirections, and advanced fork monitoring architectures across async process nodes.</p>
         <div class="project-footer">
-          <button class="btn-expand" onclick="expandProject('minishell_2', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Custom Unix shell kernel tracking tree nodes. Supports parsing arrays, pipes logic redirection, and asynchronous tracking protocols across process nodes.')">[ EXPAND ]</button>
+          <a href="https://github.com/votre-username/minishell_2" target="_blank" class="btn-project-link">[ GITHUB ]</a>
+          <button class="btn-project-link" onclick="expandProject('minishell_2', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Custom Unix shell kernel tracking tree nodes. Supports parsing arrays, pipes logic redirection, and asynchronous tracking protocols across process nodes.')">[ EXPAND ]</button>
         </div>
       </div>
 
@@ -707,7 +712,8 @@ int bfs_solver(int **maze, int rows, int cols)
         <p class="project-subtitle">// Air Traffic Control Simulator</p>
         <p class="project-desc">Quadtree partition engine achieving 50–100× speedup in collision checks. Includes circular tower protection areas and a dynamic storm system.</p>
         <div class="project-footer">
-          <button class="btn-expand" onclick="expandProject('My_radar', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Real-time spatial distribution model using Quadtree grids to compress complex object maps from native O(N²) limits down to O(N log N) rendering structures.')">[ EXPAND ]</button>
+          <a href="https://github.com/votre-username/my_radar" target="_blank" class="btn-project-link">[ GITHUB ]</a>
+          <button class="btn-project-link" onclick="expandProject('My_radar', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Real-time spatial distribution model using Quadtree grids to compress complex object maps from native O(N²) limits down to O(N log N) rendering structures.')">[ EXPAND ]</button>
         </div>
       </div>
 
@@ -725,6 +731,7 @@ int bfs_solver(int **maze, int rows, int cols)
     <div class="contact-links">
       <div class="contact-row">
         <a href="https://drive.google.com/drive/my-drive?hl=fr" class="btn-primary">⬇ DOWNLOAD CV</a>
+        <a href="https://github.com/votre-username" target="_blank" class="btn-outline">GITHUB</a>
         <a href="https://www.linkedin.com/in/armand-lixon-b31292338/" target="_blank" class="btn-outline">LINKEDIN</a>
       </div>
       <span class="contact-email">lixon.armand@gmail.com</span>
@@ -732,10 +739,9 @@ int bfs_solver(int **maze, int rows, int cols)
   </div>
 </section>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal-box">
-    <button class="modal-close" onclick="setModalState(false)">[ CLOSE X ]</button>
+    <button class="modal-close" onclick="setModalState(false)">[ CLOSE ]</button>
     <img src="" id="modalImg" class="modal-expanded-img" alt="Expanded layout" />
     <h3 class="modal-title" id="modalTitle">Project View</h3>
     <p class="modal-body" id="modalBody">Description context.</p>
@@ -763,11 +769,8 @@ int bfs_solver(int **maze, int rows, int cols)
   function applyParallax() {
     const offset = window.pageYOffset;
     if (window.innerWidth > 768) {
-      // Fond (mouvement très lent = impression de profondeur lointaine)
       bgCode.style.transform    = `translateY(${offset * -0.08}px)`;
-      // Cadre terminal (vitesse moyenne)
       terminal.style.transform  = `translateY(${offset * 0.10}px)`;
-      // Photo au premier plan (vitesse plus rapide = couche proche)
       photo.style.transform     = `translateY(${offset * 0.22}px)`;
     } else {
       bgCode.style.transform   = 'none';
