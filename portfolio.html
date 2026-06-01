@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Armand Lixon — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* =============================================
+     ✏️  DESIGN TOKENS — change these to restyle
+     ============================================= */
+  :root {
+    --bg:        #0a0a0a;
+    --surface:   #141414;
+    --border:    #222;
+    --accent:    #00e5a0;
+    --accent2:   #00b87a;
+    --text:      #e8e8e8;
+    --muted:     #888;
+    --mono:      'Space Mono', monospace;
+    --sans:      'Syne', sans-serif;
+  }
+
+  /* ============ RESET & BASE ============ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  /* ============ NAVBAR ============ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 56px;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: .75rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: .7rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ============ SECTIONS ============ */
+  section { padding: 6rem 2.5rem; max-width: 1200px; margin: 0 auto; }
+  section:first-of-type { padding-top: 9rem; }
+
+  /* ============ HERO ============ */
+  .hero { display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: start; }
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: .65rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .hero-name {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+  }
+  .hero-name span { color: var(--accent); }
+  .hero-badge {
+    display: inline-block;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    background: var(--surface);
+    padding: .6rem 1.2rem;
+    font-family: var(--mono);
+    font-size: .75rem;
+    margin-bottom: 2rem;
+    letter-spacing: .04em;
+  }
+  .hero-bio {
+    max-width: 600px;
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+  .hero-photo {
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .hero-photo-placeholder {
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: var(--surface);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: .65rem;
+    letter-spacing: .1em;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  /* ============ TRAIT CARDS ============ */
+  .traits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+    background: var(--border);
+    margin-top: 4rem;
+  }
+  .trait-card {
+    background: var(--surface);
+    padding: 1.8rem 1.5rem;
+    border-left: 3px solid var(--accent);
+  }
+  .trait-title {
+    font-family: var(--mono);
+    font-size: .65rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    margin-bottom: .8rem;
+    color: var(--text);
+    font-weight: 700;
+  }
+  .trait-body { font-size: .875rem; color: var(--muted); line-height: 1.65; }
+
+  /* ============ SECTION HEADING ============ */
+  .section-heading {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+  .section-heading::after {
+    content: '';
+    display: block;
+    width: 3rem; height: 3px;
+    background: var(--accent);
+    margin-top: .6rem;
+  }
+
+  /* ============ TECH STACK ============ */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: .75rem;
+  }
+  .stack-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1rem;
+    display: flex; flex-direction: column; align-items: center; gap: .5rem;
+    font-family: var(--mono);
+    font-size: .7rem;
+    letter-spacing: .08em;
+    color: var(--muted);
+    transition: border-color .2s, color .2s;
+    cursor: default;
+  }
+  .stack-item:hover { border-color: var(--accent); color: var(--text); }
+  .stack-icon { font-size: 1.5rem; }
+
+  /* ============ PROJECTS ============ */
+  .projects-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2rem 2rem 1.5rem;
+    transition: border-color .2s;
+  }
+  .project-card:hover { border-color: var(--accent); }
+  .project-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; margin-bottom: .3rem; }
+  .project-title { font-size: 1.4rem; font-weight: 700; }
+  .project-tags { display: flex; gap: .4rem; flex-wrap: wrap; }
+  .tag {
+    font-family: var(--mono);
+    font-size: .6rem;
+    letter-spacing: .08em;
+    padding: .25rem .6rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: var(--bg);
+  }
+  .project-subtitle { font-family: var(--mono); font-size: .7rem; color: var(--accent); letter-spacing: .1em; margin-bottom: 1rem; }
+  .project-desc { color: var(--muted); font-size: .9rem; line-height: 1.7; margin-bottom: 1.5rem; }
+  .pipeline-label {
+    font-family: var(--mono);
+    font-size: .55rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: .8rem;
+  }
+  .pipeline {
+    display: flex; gap: 0; flex-wrap: wrap;
+    border: 1px solid var(--border);
+  }
+  .pipeline-step {
+    flex: 1; min-width: 120px;
+    padding: .8rem 1rem;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .pipeline-step:last-child { border-right: none; }
+  .step-num {
+    font-family: var(--mono);
+    font-size: .6rem;
+    color: var(--accent);
+    margin-bottom: .25rem;
+  }
+  .step-name { font-family: var(--mono); font-size: .75rem; font-weight: 700; margin-bottom: .25rem; }
+  .step-desc { font-size: .75rem; color: var(--muted); }
+  .project-footer { display: flex; justify-content: flex-end; margin-top: 1.5rem; }
+  .btn-github {
+    font-family: var(--mono);
+    font-size: .65rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .55rem 1.2rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    display: flex; align-items: center; gap: .5rem;
+    transition: border-color .2s, color .2s;
+  }
+  .btn-github:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ============ CONTACT ============ */
+  .contact-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    border-top: 1px solid var(--border);
+    padding-top: 4rem;
+  }
+  .contact-label {
+    font-family: var(--mono);
+    font-size: .65rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: .8rem;
+  }
+  .contact-heading { font-size: 2rem; font-weight: 800; margin-bottom: .5rem; }
+  .contact-sub { color: var(--muted); font-size: .9rem; }
+  .contact-links { display: flex; flex-direction: column; gap: .75rem; align-items: flex-end; }
+  .btn-primary {
+    font-family: var(--mono);
+    font-size: .65rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .75rem 1.6rem;
+    background: var(--accent);
+    color: #000;
+    font-weight: 700;
+    transition: opacity .2s;
+  }
+  .btn-primary:hover { opacity: .85; }
+  .btn-outline {
+    font-family: var(--mono);
+    font-size: .65rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .75rem 1.6rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    transition: border-color .2s, color .2s;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .contact-row { display: flex; gap: .75rem; }
+  .contact-email {
+    font-family: var(--mono);
+    font-size: .7rem;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: .55rem 1.1rem;
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-family: var(--mono);
+    font-size: .6rem;
+    color: var(--muted);
+    letter-spacing: .12em;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ============ FADE-IN ANIMATION ============ */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  /* ============ SCROLLBAR ============ */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     NAVBAR
+     ══════════════════════════════════════ -->
+<nav>
+  <!-- ✏️ Your name in the nav -->
+  <span class="nav-logo">Armand Lixon</span>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#stack">Stack</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════
+     HERO  ✏️ Edit your intro here
+     ══════════════════════════════════════ -->
+<section id="about">
+  <div class="hero fade-in">
+    <div>
+      <!-- ✏️ Your title/role -->
+      <p class="hero-tag">Software Engineering Student</p>
+
+      <!-- ✏️ Your name -->
+      <h1 class="hero-name">Quentin <span>Hoarau</span></h1>
+
+      <!-- ✏️ Short availability line -->
+      <div class="hero-badge">Looking for a 4-month Devlopment internship in Barcelona.</div>
+
+      <!-- ✏️ Your bio paragraph -->
+      <p class="hero-bio">
+        Based in Barcelona for over ten years, I thrive in multicultural environments,
+        which has made me highly adaptable and independent. Trained through Epitech's
+        intensive project-based curriculum, my technical foundation is focused on
+        clean code, performance, and efficient delivery.
+      </p>
+    </div>
+
+    <!-- ✏️ Replace the src with a real photo URL, or delete this block to keep the placeholder -->
+    <div class="https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png">YOUR<br>PHOTO</div>
+    <!-- Uncomment and set src once you have a photo:
+    <img class="hero-photo" src="your-photo.jpg" alt="Armand Lixon" />
+    -->
+  </div>
+
+  <!-- ✏️ Trait cards — add, remove or edit freely -->
+  <div class="traits fade-in">
+    <div class="trait-card">
+      <p class="trait-title">Unix &amp; C Systems</p>
+      <p class="trait-body">Solid systems programming background. Experienced in low-level memory allocation, asynchronous processes, IPC, and developing custom UNIX shells.</p>
+    </div>
+    <div class="trait-card">
+      <p class="trait-title">AI Orchestration &amp; Claude Code</p>
+      <p class="trait-body">Power-user of Claude Code and agentic workflows. Automating multi-file refactoring, deep code reviews, and speeding up architecture prototyping.</p>
+    </div>
+    <div class="trait-card">
+      <p class="trait-title">Discipline &amp; Consistency</p>
+      <p class="trait-body">Daily high-intensity Street Workout and structured nutrition. This personal discipline translates directly into my work: focus, consistency, and clean execution.</p>
+    </div>
+    <div class="trait-card">
+      <p class="trait-title">DeFi &amp; Web3</p>
+      <p class="trait-body">Keen interest in Web3 protocols and decentralized finance. Combining product vision with a solid understanding of distributed ledgers and smart contract mechanics.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     TECH STACK  ✏️ Add/remove items below
+     ══════════════════════════════════════ -->
+<section id="stack">
+  <h2 class="section-heading fade-in">Tech Stack</h2>
+
+  <!-- ✏️ Each .stack-item = one technology. Edit icon (emoji) and label. -->
+  <div class="stack-grid fade-in">
+    <div class="stack-item"><span class="stack-icon">🖥</span>Unix Systems</div>
+    <div class="stack-item"><span class="stack-icon">⚡</span>C</div>
+    <div class="stack-item"><span class="stack-icon">🤖</span>Claude</div>
+    <div class="stack-item"><span class="stack-icon">✨</span>Gemini</div>
+    <div class="stack-item"><span class="stack-icon">⚛️</span>React</div>
+    <div class="stack-item"><span class="stack-icon">🐳</span>Docker</div>
+    <div class="stack-item"><span class="stack-icon">📘</span>TypeScript</div>
+    <div class="stack-item"><span class="stack-icon">🐍</span>Python</div>
+    <div class="stack-item"><span class="stack-icon">🌿</span>Git</div>
+    <div class="stack-item"><span class="stack-icon">🐧</span>Linux</div>
+    <div class="stack-item"><span class="stack-icon">💻</span>Bash</div>
+    <div class="stack-item"><span class="stack-icon">🔧</span>CSFML</div>
+    <div class="stack-item"><span class="stack-icon">🛡️</span>Cybersecurity</div>
+    <!-- ✏️ Add more: <div class="stack-item"><span class="stack-icon">🔷</span>Go</div> -->
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     PROJECTS  ✏️ Duplicate a .project-card to add a project
+     ══════════════════════════════════════ -->
+<section id="projects">
+  <h2 class="section-heading fade-in">Systems &amp; Algorithmic Projects</h2>
+
+  <div class="projects-list">
+
+    <!-- ════ PROJECT 1 ════ -->
+    <div class="project-card fade-in">
+      <div class="project-header">
+        <!-- ✏️ Project name -->
+        <h3 class="project-title">A-maze-d</h3>
+        <!-- ✏️ Tags -->
+        <div class="project-tags">
+          <span class="tag">C</span>
+          <span class="tag">Graph Theory</span>
+          <span class="tag">BFS</span>
+          <span class="tag">Algorithms</span>
+        </div>
+      </div>
+      <!-- ✏️ One-liner subtitle -->
+      <p class="project-subtitle">Multi-Robot Pathfinding Engine</p>
+      <!-- ✏️ Description -->
+      <p class="project-desc">
+        A high-performance multi-robot pathfinding solver in C. Solves complex mazes by computing
+        optimal distances using a reverse BFS from the exit in O(R+T), extracts non-overlapping
+        shortest paths, distributes robots based on traversal costs, and prevents collisions turn-by-turn.
+      </p>
+
+      <!-- ✏️ Pipeline steps (up to 4) -->
+      <p class="pipeline-label">Execution Pipeline</p>
+      <div class="pipeline">
+        <div class="pipeline-step">
+          <p class="step-num">01</p>
+          <p class="step-name">Reverse BFS</p>
+          <p class="step-desc">O(R+T) exit distance compute</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">02</p>
+          <p class="step-name">Optimal Paths</p>
+          <p class="step-desc">Extract non-overlapping paths</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">03</p>
+          <p class="step-name">Distribution</p>
+          <p class="step-desc">Intelligent balancing on cost</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">04</p>
+          <p class="step-name">Anti-Collision</p>
+          <p class="step-desc">Lock-free turn-by-turn planning</p>
+        </div>
+      </div>
+
+      <!-- ✏️ Your GitHub link -->
+      <div class="project-footer">
+        <a href="https://github.com/yourusername/a-maze-d" target="_blank" class="btn-github">
+          ⬡ View on GitHub
+        </a>
+      </div>
+    </div>
+
+    <!-- ════ PROJECT 2 ════ -->
+    <div class="project-card fade-in">
+      <div class="project-header">
+        <h3 class="project-title">BSQ (Biggest Square)</h3>
+        <div class="project-tags">
+          <span class="tag">C</span>
+          <span class="tag">Performance</span>
+          <span class="tag">Dynamic Programming</span>
+          <span class="tag">O(N)</span>
+        </div>
+      </div>
+      <p class="project-subtitle">Dynamic Tabulation Solver</p>
+      <p class="project-desc">
+        A high-performance C algorithm designed to locate the largest empty square in
+        obstacle-filled grids. Using a single-pass Dynamic Programming tabulation in O(N),
+        it processes massive 10,000×10,000 grids in milliseconds with highly optimized memory management.
+      </p>
+
+      <p class="pipeline-label">Execution Pipeline</p>
+      <div class="pipeline">
+        <div class="pipeline-step">
+          <p class="step-num">01</p>
+          <p class="step-name">Parse Grid</p>
+          <p class="step-desc">Read obstacle map</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">02</p>
+          <p class="step-name">DP Table</p>
+          <p class="step-desc">Single-pass tabulation</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">03</p>
+          <p class="step-name">Max Square</p>
+          <p class="step-desc">Track running maximum</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">04</p>
+          <p class="step-name">Output</p>
+          <p class="step-desc">Print result grid</p>
+        </div>
+      </div>
+
+      <div class="project-footer">
+        <a href="https://github.com/yourusername/bsq" target="_blank" class="btn-github">
+          ⬡ View on GitHub
+        </a>
+      </div>
+    </div>
+
+    <!-- ════ PROJECT 3 — TEMPLATE, duplicate this block ════ -->
+    <div class="project-card fade-in">
+      <div class="project-header">
+        <h3 class="project-title">My New Project</h3>
+        <div class="project-tags">
+          <span class="tag">React</span>
+          <span class="tag">TypeScript</span>
+        </div>
+      </div>
+      <p class="project-subtitle">Short catchy subtitle</p>
+      <p class="project-desc">
+        ✏️ Write your project description here. What problem does it solve? What are
+        the interesting technical challenges? What's the performance or impact?
+      </p>
+
+      <p class="pipeline-label">Execution Pipeline</p>
+      <div class="pipeline">
+        <div class="pipeline-step">
+          <p class="step-num">01</p>
+          <p class="step-name">Step One</p>
+          <p class="step-desc">Brief description</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">02</p>
+          <p class="step-name">Step Two</p>
+          <p class="step-desc">Brief description</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">03</p>
+          <p class="step-name">Step Three</p>
+          <p class="step-desc">Brief description</p>
+        </div>
+      </div>
+
+      <div class="project-footer">
+        <a href="https://github.com/yourusername/project" target="_blank" class="btn-github">
+          ⬡ View on GitHub
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /projects-list -->
+</section>
+
+<!-- ══════════════════════════════════════
+     CONTACT  ✏️ Update links & email
+     ══════════════════════════════════════ -->
+<section id="contact">
+  <div class="contact-wrap fade-in">
+    <div>
+      <p class="contact-label">Get in touch</p>
+      <h2 class="contact-heading">Ready to build something together?</h2>
+      <p class="contact-sub">Available immediately for an internship in Barcelona.</p>
+    </div>
+    <div class="contact-links">
+      <div class="contact-row">
+        <!-- ✏️ Replace with your CV link -->
+        <a href="#" class="btn-primary">⬇ Download my CV</a>
+        <!-- ✏️ Replace with your LinkedIn URL -->
+        <a href="https://www.linkedin.com/in/armand-lixon-b31292338/" target="_blank" class="btn-outline">LinkedIn</a>
+        <!-- ✏️ Replace with your GitHub URL -->
+        <a href="https://github.com/ArmandLIX" target="_blank" class="btn-outline">GitHub</a>
+      </div>
+      <!-- ✏️ Your email -->
+      <span class="contact-email">quentin.hoarau193@gmail.com</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+     ══════════════════════════════════════ -->
+<footer>
+  <!-- ✏️ Your name and year -->
+  © 2026 Armand Lixon. All rights reserved.
+</footer>
+
+<script>
+  // Fade-in on scroll
+  const observer = new IntersectionObserver(
+    (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
