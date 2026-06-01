@@ -68,11 +68,7 @@
   section { padding: 6rem 2.5rem; max-width: 1200px; margin: 0 auto; }
   section:first-of-type { padding-top: 9rem; }
 
-  /* ============ HERO (PARALLAX OPTIMIZED) ============ */
-  .hero-container {
-    position: relative;
-    will-change: transform;
-  }
+  /* ============ HERO ============ */
   .hero { display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: start; }
   .hero-tag {
     font-family: var(--mono);
@@ -107,14 +103,24 @@
     line-height: 1.75;
     margin-bottom: 2.5rem;
   }
-  .hero-photo-wrap {
-    will-change: transform;
-  }
   .hero-photo {
     width: 200px; height: 200px;
     border-radius: 50%;
     border: 2px solid var(--accent);
     object-fit: cover;
+    flex-shrink: 0;
+  }
+  .hero-photo-placeholder {
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: var(--surface);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: .65rem;
+    letter-spacing: .1em;
+    text-align: center;
     flex-shrink: 0;
   }
 
@@ -179,37 +185,13 @@
   .stack-item:hover { border-color: var(--accent); color: var(--text); }
   .stack-icon { font-size: 1.5rem; }
 
-  /* ============ CAROUSEL PROJECTS ============ */
-  .carousel-container {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-  }
-  .projects-carousel {
-    display: flex;
-    gap: 2rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    scrollbar-width: none; /* Firefox */
-    padding-bottom: 1rem;
-  }
-  .projects-carousel::-webkit-scrollbar {
-    display: none; /* Safari/Chrome */
-  }
+  /* ============ PROJECTS ============ */
+  .projects-list { display: flex; flex-direction: column; gap: 1.5rem; }
   .project-card {
-    flex: 0 0 calc(100% - 1rem);
-    scroll-snap-align: start;
     background: var(--surface);
     border: 1px solid var(--border);
     padding: 2rem 2rem 1.5rem;
     transition: border-color .2s;
-  }
-  @media (min-width: 768px) {
-    .project-card { flex: 0 0 calc(50% - 1rem); }
-  }
-  @media (min-width: 1024px) {
-    .project-card { flex: 0 0 calc(100% / 1.5); }
   }
   .project-card:hover { border-color: var(--accent); }
   .project-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; margin-bottom: .3rem; }
@@ -226,7 +208,6 @@
   }
   .project-subtitle { font-family: var(--mono); font-size: .7rem; color: var(--accent); letter-spacing: .1em; margin-bottom: 1rem; }
   .project-desc { color: var(--muted); font-size: .9rem; line-height: 1.7; margin-bottom: 1.5rem; }
-  
   .pipeline-label {
     font-family: var(--mono);
     font-size: .55rem;
@@ -254,28 +235,8 @@
   }
   .step-name { font-family: var(--mono); font-size: .75rem; font-weight: 700; margin-bottom: .25rem; }
   .step-desc { font-size: .75rem; color: var(--muted); }
-  .project-footer { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem; }
-  
-  /* Carousel Controls */
-  .carousel-controls {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-  }
-  .btn-nav {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: .5rem 1rem;
-    font-family: var(--mono);
-    font-size: .8rem;
-    cursor: pointer;
-    transition: border-color .2s, color .2s;
-  }
-  .btn-nav:hover { border-color: var(--accent); color: var(--accent); }
-
-  .btn-github, .btn-info {
+  .project-footer { display: flex; justify-content: flex-end; margin-top: 1.5rem; }
+  .btn-github {
     font-family: var(--mono);
     font-size: .65rem;
     letter-spacing: .1em;
@@ -284,10 +245,9 @@
     border: 1px solid var(--border);
     color: var(--muted);
     display: flex; align-items: center; gap: .5rem;
-    cursor: pointer;
     transition: border-color .2s, color .2s;
   }
-  .btn-github:hover, .btn-info:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-github:hover { border-color: var(--accent); color: var(--accent); }
 
   /* ============ CONTACT ============ */
   .contact-wrap {
@@ -319,7 +279,6 @@
     background: var(--accent);
     color: #000;
     font-weight: 700;
-    cursor: pointer;
     transition: opacity .2s;
   }
   .btn-primary:hover { opacity: .85; }
@@ -342,37 +301,6 @@
     border: 1px solid var(--accent);
     padding: .55rem 1.1rem;
   }
-
-  /* ============ MODAL SYSTEM ============ */
-  .modal-overlay {
-    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(10, 10, 10, 0.85);
-    backdrop-filter: blur(8px);
-    z-index: 200;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; pointer-events: none;
-    transition: opacity .3s ease;
-  }
-  .modal-overlay.active { opacity: 1; pointer-events: auto; }
-  .modal-box {
-    background: var(--surface);
-    border: 1px solid var(--accent);
-    padding: 2.5rem;
-    max-width: 550px; width: 90%;
-    position: relative;
-    transform: translateY(20px);
-    transition: transform .3s ease;
-  }
-  .modal-overlay.active .modal-box { transform: translateY(0); }
-  .modal-close {
-    position: absolute; top: 1rem; right: 1rem;
-    background: none; border: none;
-    color: var(--muted); font-family: var(--mono);
-    font-size: 1.2rem; cursor: pointer;
-  }
-  .modal-close:hover { color: var(--accent); }
-  .modal-title { font-size: 1.8rem; margin-bottom: 1rem; font-weight: 800; }
-  .modal-body { color: var(--muted); font-size: .95rem; margin-bottom: 1.5rem; }
 
   /* ============ FOOTER ============ */
   footer {
@@ -401,8 +329,11 @@
 </head>
 <body>
 
-<!-- NAVBAR -->
+<!-- ══════════════════════════════════════
+     NAVBAR
+     ══════════════════════════════════════ -->
 <nav>
+  <!-- ✏️ Your name in the nav -->
   <span class="nav-logo">Armand Lixon</span>
   <div class="nav-links">
     <a href="#about">About</a>
@@ -412,13 +343,22 @@
   </div>
 </nav>
 
-<!-- HERO SECTON (With Parallax Structural Layout) -->
+<!-- ══════════════════════════════════════
+     HERO  ✏️ Edit your intro here
+     ══════════════════════════════════════ -->
 <section id="about">
   <div class="hero fade-in">
-    <div class="hero-container" id="parallax-text">
+    <div>
+      <!-- ✏️ Your title/role -->
       <p class="hero-tag">Software Engineering Student</p>
+
+      <!-- ✏️ Your name -->
       <h1 class="hero-name">Armand <span>Lixon</span></h1>
-      <div class="hero-badge">Looking for a 4-month Development internship in Barcelona.</div>
+
+      <!-- ✏️ Short availability line -->
+      <div class="hero-badge">Looking for a 4-month Devlopment internship in Barcelona.</div>
+
+      <!-- ✏️ Your bio paragraph -->
       <p class="hero-bio">
         Based in Barcelona, I thrive in multicultural environments,
         which has made me highly adaptable and independent. Trained through Epitech's
@@ -427,12 +367,13 @@
       </p>
     </div>
 
-    <div class="hero-photo-wrap" id="parallax-img">
-      <img class="hero-photo" src="https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png" alt="Armand Lixon" />
-    </div>
+    <!-- ✏️ Replace the src with a real photo URL, or delete this block to keep the placeholder -->
+  <div>
+    <!-- La balise img est maintenant active avec le bon lien src -->
+    <img class="hero-photo" src="https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png" alt="Armand Lixon" />
   </div>
 
-  <!-- Trait cards -->
+  <!-- ✏️ Trait cards — add, remove or edit freely -->
   <div class="traits fade-in">
     <div class="trait-card">
       <p class="trait-title">Unix &amp; C Systems</p>
@@ -449,9 +390,13 @@
   </div>
 </section>
 
-<!-- TECH STACK -->
+<!-- ══════════════════════════════════════
+     TECH STACK  ✏️ Add/remove items below
+     ══════════════════════════════════════ -->
 <section id="stack">
   <h2 class="section-heading fade-in">Tech Stack</h2>
+
+  <!-- ✏️ Each .stack-item = one technology. Edit icon (emoji) and label. -->
   <div class="stack-grid fade-in">
     <div class="stack-item"><span class="stack-icon">🖥</span>Unix Systems</div>
     <div class="stack-item"><span class="stack-icon">⚡</span>C</div>
@@ -466,152 +411,275 @@
     <div class="stack-item"><span class="stack-icon">💻</span>Bash</div>
     <div class="stack-item"><span class="stack-icon">🔧</span>CSFML</div>
     <div class="stack-item"><span class="stack-icon">🛡️</span>Cybersecurity</div>
+    <!-- ✏️ Add more: <div class="stack-item"><span class="stack-icon">🔷</span>Go</div> -->
   </div>
 </section>
 
-<!-- PROJECTS (With Horizontal Slider/Carousel) -->
+<!-- ══════════════════════════════════════
+     PROJECTS  ✏️ Duplicate a .project-card to add a project
+     ══════════════════════════════════════ -->
 <section id="projects">
   <h2 class="section-heading fade-in">Systems &amp; Algorithmic Projects</h2>
 
-  <!-- Controls -->
-  <div class="carousel-controls fade-in">
-    <button class="btn-nav" id="prevBtn">← Prev</button>
-    <button class="btn-nav" id="nextBtn">Next →</button>
-  </div>
+  <div class="projects-list">
 
-  <div class="carousel-container fade-in">
-    <div class="projects-carousel" id="carousel">
+    <!-- ════ PROJECT 1 ════ -->
+    <div class="project-card fade-in">
+      <div class="project-header">
+        <!-- ✏️ Project name -->
+        <h3 class="project-title">A-maze-d</h3>
+        <!-- ✏️ Tags -->
+        <div class="project-tags">
+          <span class="tag">C</span>
+          <span class="tag">Graph Theory</span>
+          <span class="tag">BFS</span>
+          <span class="tag">Algorithms</span>
+        </div>
+      </div>
+      <!-- ✏️ One-liner subtitle -->
+      <p class="project-subtitle">Multi-Robot Pathfinding Engine</p>
+      <!-- ✏️ Description -->
+      <p class="project-desc">
+        A high-performance multi-robot pathfinding solver in C. Solves complex mazes by computing
+        optimal distances using a reverse BFS from the exit in O(R+T), extracts non-overlapping
+        shortest paths, distributes robots based on traversal costs, and prevents collisions turn-by-turn.
+      </p>
 
-      <!-- PROJECT 1: A-maze-d -->
-      <div class="project-card">
-        <div class="project-header">
-          <h3 class="project-title">A-maze-d</h3>
-          <div class="project-tags">
-            <span class="tag">C</span>
-            <span class="tag">Graph Theory</span>
-            <span class="tag">BFS</span>
-          </div>
+      <!-- ✏️ Pipeline steps (up to 4) -->
+      <p class="pipeline-label">Execution Pipeline</p>
+      <div class="pipeline">
+        <div class="pipeline-step">
+          <p class="step-num">01</p>
+          <p class="step-name">Reverse BFS</p>
+          <p class="step-desc">O(R+T) exit distance compute</p>
         </div>
-        <p class="project-subtitle">Multi-Robot Pathfinding Engine</p>
-        <p class="project-desc">
-          A high-performance multi-robot pathfinding solver in C. Solves complex mazes by computing optimal distances using a reverse BFS.
-        </p>
-        <p class="pipeline-label">Execution Pipeline</p>
-        <div class="pipeline">
-          <div class="pipeline-step"><p class="step-num">01</p><p class="step-name">Reverse BFS</p></div>
-          <div class="pipeline-step"><p class="step-num">02</p><p class="step-name">Optimal Paths</p></div>
+        <div class="pipeline-step">
+          <p class="step-num">02</p>
+          <p class="step-name">Optimal Paths</p>
+          <p class="step-desc">Extract non-overlapping paths</p>
         </div>
-        <div class="project-footer">
-          <button class="btn-info" onclick="openModal('A-maze-d', 'This core algorithmic engine handles synchronized multi-agent cross-traversals without collisions, scaling to large graph grids smoothly.')">ℹ Details</button>
-          <a href="https://github.com/yourusername/a-maze-d" target="_blank" class="btn-github">⬡ GitHub</a>
+        <div class="pipeline-step">
+          <p class="step-num">03</p>
+          <p class="step-name">Distribution</p>
+          <p class="step-desc">Intelligent balancing on cost</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">04</p>
+          <p class="step-name">Anti-Collision</p>
+          <p class="step-desc">Lock-free turn-by-turn planning</p>
         </div>
       </div>
 
-      <!-- PROJECT 2: minishell_2 -->
-      <div class="project-card">
-        <div class="project-header">
-          <h3 class="project-title">minishell_2</h3>
-          <div class="project-tags">
-            <span class="tag">C</span>
-            <span class="tag">Unix API</span>
-            <span class="tag">Processus</span>
-          </div>
-        </div>
-        <p class="project-subtitle">Custom Unix Shell Interpreter</p>
-        <p class="project-desc">
-          A complete command-line interpreter reproducing core Unix shell functionalities featuring pipes, logical operators, and complex redirections.
-        </p>
-        <p class="pipeline-label">Execution Pipeline</p>
-        <div class="pipeline">
-          <div class="pipeline-step"><p class="step-num">01</p><p class="step-name">Parsing</p></div>
-          <div class="pipeline-step"><p class="step-num">02</p><p class="step-name">AST Build</p></div>
-        </div>
-        <div class="project-footer">
-          <button class="btn-info" onclick="openModal('minishell_2', 'Re-architecturing a mini Unix system ecosystem. Focus on low level processes fork, execution paths, and memory tracking.')">ℹ Details</button>
-          <a href="https://github.com/ArmandLIX/MY_minishell" target="_blank" class="btn-github">⬡ GitHub</a>
-        </div>
+      <!-- ✏️ Your GitHub link -->
+      <div class="project-footer">
+        <a href="https://github.com/yourusername/a-maze-d" target="_blank" class="btn-github">
+          ⬡ View on GitHub
+        </a>
       </div>
-
-      <!-- PROJECT 3: My_radar -->
-      <div class="project-card">
-        <div class="project-header">
-          <h3 class="project-title">My_radar</h3>
-          <div class="project-tags">
-            <span class="tag">C</span>
-            <span class="tag">CSFML</span>
-            <span class="tag">Quadtree</span>
-          </div>
-        </div>
-        <p class="project-subtitle">Air Traffic Control Simulator</p>
-        <p class="project-desc">
-          A dynamic 2D air traffic simulation rendering thousands of aircraft in real-time utilizing spatial partitioning algorithms.
-        </p>
-        <p class="pipeline-label">Execution Pipeline</p>
-        <div class="pipeline">
-          <div class="pipeline-step"><p class="step-num">01</p><p class="step-name">Quadtree</p></div>
-          <div class="pipeline-step"><p class="step-num">02</p><p class="step-name">Collision</p></div>
-        </div>
-        <div class="project-footer">
-          <button class="btn-info" onclick="openModal('My_radar', 'By optimizing complex calculations from nested O(N²) collision checkpoints to clean O(N log N) grid steps, performance stayed locked at 60FPS.')">ℹ Details</button>
-          <a href="https://github.com/ArmandLIX/MY_radar" target="_blank" class="btn-github">⬡ GitHub</a>
-        </div>
-      </div>
-
-      <!-- PROJECT 4: My_mouli -->
-      <div class="project-card">
-        <div class="project-header">
-          <h3 class="project-title">My_mouli</h3>
-          <div class="project-tags">
-            <span class="tag">JS</span>
-            <span class="tag">Node.js</span>
-            <span class="tag">Automation</span>
-          </div>
-        </div>
-        <p class="project-subtitle">Automated Testing Framework</p>
-        <p class="project-desc">
-          A custom unit-testing and code style analysis tool built specifically to mirror Epitech\'s automated grading system natively.
-        </p>
-        <p class="pipeline-label">Execution Pipeline</p>
-        <div class="pipeline">
-          <div class="pipeline-step"><p class="step-num">01</p><p class="step-name">Linter Scan</p></div>
-          <div class="pipeline-step"><p class="step-num">02</p><p class="step-name">Test Runner</p></div>
-        </div>
-        <div class="project-footer">
-          <button class="btn-info" onclick="openModal('My_mouli', 'Scans workspaces instantly using automated parsing rules to secure high-quality standard compliance across distinct environments.')">ℹ Details</button>
-          <a href="https://github.com/ArmandLIX/My_mouli" target="_blank" class="btn-github">⬡ GitHub</a>
-        </div>
-      </div>
-
-      <!-- PROJECT 5: Epytodo -->
-      <div class="project-card">
-        <div class="project-header">
-          <h3 class="project-title">Epytodo</h3>
-          <div class="project-tags">
-            <span class="tag">Node.js</span>
-            <span class="tag">MySQL</span>
-            <span class="tag">REST API</span>
-          </div>
-        </div>
-        <p class="project-subtitle">Full-Stack Task Management Ecosystem</p>
-        <p class="project-desc">
-          A secure web ecosystem engineered for task tracking featuring cryptographical backend controls and a relational database.
-        </p>
-        <p class="pipeline-label">Execution Pipeline</p>
-        <div class="pipeline">
-          <div class="pipeline-step"><p class="step-num">01</p><p class="step-name">JWT Secure</p></div>
-          <div class="pipeline-step"><p class="step-num">02</p><p class="step-name">SQL Query</p></div>
-        </div>
-        <div class="project-footer">
-          <button class="btn-info" onclick="openModal('Epytodo Ecosystem', 'Implemented multi-tenant isolation, protecting routes from token spoofing and preventing workspace manipulation between distinct users.')">ℹ Details</button>
-          <a href="https://github.com/ArmandLIX/Epytodo" target="_blank" class="btn-github">⬡ GitHub</a>
-        </div>
-      </div>
-
     </div>
-  </div>
+
+ <!-- ════ PROJECT: minishell_2 ════ -->
+    <div class="project-card fade-in">
+      <div class="project-header">
+        <h3 class="project-title">minishell_2</h3>
+        <div class="project-tags">
+          <span class="tag">C</span>
+          <span class="tag">Unix API</span>
+          <span class="tag">Processus</span>
+          <span class="tag">Architecture</span>
+        </div>
+      </div>
+      <p class="project-subtitle">Custom Unix Shell Interpreter</p>
+      <p class="project-desc">
+        A complete command-line interpreter reproducing core Unix shell functionalities. Built in C, 
+        it features advanced process management, logical operators (&&, ||), pipes (|), complex 
+        redirections (>, >>, <, <<), and built-in command management with rigorous error handling.
+      </p>
+
+      <p class="pipeline-label">Execution Pipeline</p>
+      <div class="pipeline">
+        <div class="pipeline-step">
+          <p class="step-num">01</p>
+          <p class="step-name">Lexing & Parsing</p>
+          <p class="step-desc">Tokenize user command line</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">02</p>
+          <p class="step-name">AST Build</p>
+          <p class="step-desc">Construct execution tree</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">03</p>
+          <p class="step-name">Fork & Pipe</p>
+          <p class="step-desc">Manage redirections & IPC</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">04</p>
+          <p class="step-name">Execute</p>
+          <p class="step-desc">Run builtins or execve</p>
+        </div>
+      </div>
+
+      <div class="project-footer">
+        <a href="https://github.com/ArmandLIX/MY_minishell" target="_blank" class="btn-github">
+          ⬡ View on GitHub
+        </a>
+      </div>
+    </div>
+
+    <!-- ════ PROJECT: My_radar ════ -->
+    <div class="project-card fade-in">
+      <div class="project-header">
+        <h3 class="project-title">My_radar</h3>
+        <div class="project-tags">
+          <span class="tag">C</span>
+          <span class="tag">CSFML</span>
+          <span class="tag">Quadtree</span>
+          <span class="tag">2D Simulation</span>
+        </div>
+      </div>
+      <p class="project-subtitle">Air Traffic Control Simulator</p>
+      <p class="project-desc">
+        A dynamic 2D air traffic simulation rendering thousands of aircraft and control towers in real-time. 
+        Powered by CSFML, it implements a highly optimized Quadtree spatial partitioning algorithm to 
+        reduce collision-detection complexity from O(N²) to O(N log N).
+      </p>
+
+      <p class="pipeline-label">Execution Pipeline</p>
+      <div class="pipeline">
+        <div class="pipeline-step">
+          <p class="step-num">01</p>
+          <p class="step-name">Parse Script</p>
+          <p class="step-desc">Load aircraft & tower data</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">02</p>
+          <p class="step-name">Quadtree Build</p>
+          <p class="step-desc">Subdivide 2D workspace</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">03</p>
+          <p class="step-name">Collision Update</p>
+          <p class="step-desc">Check intersections</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">04</p>
+          <p class="step-name">Render</p>
+          <p class="step-desc">Draw sprites and hitboxes</p>
+        </div>
+      </div>
+
+      <div class="project-footer">
+        <a href="https://github.com/ArmandLIX/MY_radar" target="_blank" class="btn-github">
+          ⬡ View on GitHub
+        </a>
+      </div>
+    </div>
+
+    <!-- ════ PROJECT: My_mouli ════ -->
+    <div class="project-card fade-in">
+      <div class="project-header">
+        <h3 class="project-title">My_mouli</h3>
+        <div class="project-tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">Automation</span>
+          <span class="tag">Testing</span>
+        </div>
+      </div>
+      <p class="project-subtitle">Automated Testing Framework</p>
+      <p class="project-desc">
+        A custom unit-testing and code style analysis tool built specifically to mirror Epitech's automated 
+        grading system. It runs local test suites, checks formatting guidelines, monitors memory leaks, 
+        and generates precise reports to bulletproof code before delivery.
+      </p>
+
+      <p class="pipeline-label">Execution Pipeline</p>
+      <div class="pipeline">
+        <div class="pipeline-step">
+          <p class="step-num">01</p>
+          <p class="step-name">Linter Scan</p>
+          <p class="step-desc">Check Epitech code style</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">02</p>
+          <p class="step-name">Compilation</p>
+          <p class="step-desc">Build workspace via Makefile</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">03</p>
+          <p class="step-name">Test Runner</p>
+          <p class="step-desc">Inject inputs & catch outputs</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">04</p>
+          <p class="step-name">Logs Report</p>
+          <p class="step-desc">Output summary & crash diffs</p>
+        </div>
+      </div>
+
+      <div class="project-footer">
+        <a href="https://github.com/ArmandLIX/My_mouli" target="_blank" class="btn-github">
+          ⬡ View on GitHub
+        </a>
+      </div>
+    </div>
+
+    <!-- ════ PROJECT: Epytodo ════ -->
+    <div class="project-card fade-in">
+      <div class="project-header">
+        <h3 class="project-title">Epytodo</h3>
+        <div class="project-tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">REST API</span>
+          <span class="tag">Express</span>
+        </div>
+      </div>
+      <p class="project-subtitle">Full-Stack Task Management Web Application</p>
+      <p class="project-desc">
+        A secure web ecosystem engineered for productivity tracking. Features a robust backend REST API built 
+        with Express and MySQL for relational data persistence, combined with an intuitive web front-end 
+        handling user registration, JWT authentication, and interactive task monitoring.
+      </p>
+
+      <p class="pipeline-label">Execution Pipeline</p>
+      <div class="pipeline">
+        <div class="pipeline-step">
+          <p class="step-num">01</p>
+          <p class="step-name">Auth / JWT</p>
+          <p class="step-desc">Secure registration & login</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">02</p>
+          <p class="step-name">API Request</p>
+          <p class="step-desc">Route handling & middleware</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">03</p>
+          <p class="step-name">SQL Query</p>
+          <p class="step-desc">CRUD actions on database</p>
+        </div>
+        <div class="pipeline-step">
+          <p class="step-num">04</p>
+          <p class="step-name">UI Render</p>
+          <p class="step-desc">Dynamic task status update</p>
+        </div>
+      </div>
+
+      <div class="project-footer">
+        <a href="https://github.com/ArmandLIX/Epytodo" target="_blank" class="btn-github">
+          ⬡ View on GitHub
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /projects-list -->
 </section>
 
-<!-- CONTACT -->
+<!-- ══════════════════════════════════════
+     CONTACT  ✏️ Update links & email
+     ══════════════════════════════════════ -->
 <section id="contact">
   <div class="contact-wrap fade-in">
     <div>
@@ -621,81 +689,34 @@
     </div>
     <div class="contact-links">
       <div class="contact-row">
+        <!-- ✏️ Replace with your CV link -->
         <a href="https://drive.google.com/drive/my-drive?hl=fr" class="btn-primary">⬇ Download my CV</a>
-        <button class="btn-outline" onclick="openModal('Contact Session', 'Drop me a direct email at lixon.armand@gmail.com, or knock on my LinkedIn messages. Let\'s setup a sync!')">Fast Connect</button>
+        <!-- ✏️ Replace with your LinkedIn URL -->
+        <a href="https://www.linkedin.com/in/armand-lixon-b31292338/" target="_blank" class="btn-outline">LinkedIn</a>
+        <!-- ✏️ Replace with your GitHub URL -->
         <a href="https://github.com/ArmandLIX" target="_blank" class="btn-outline">GitHub</a>
       </div>
+      <!-- ✏️ Your email -->
       <span class="contact-email">lixon.armand@gmail.com</span>
     </div>
   </div>
 </section>
 
-<!-- GLOBAL MODAL BOX SYSTEM -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal-box">
-    <button class="modal-close" onclick="toggleModalInstance(false)">✕</button>
-    <h3 class="modal-title" id="modalTitle">Project Analysis</h3>
-    <p class="modal-body" id="modalBody">Detailed system metrics go here.</p>
-    <button class="btn-primary" style="padding: .5rem 1rem;" onclick="toggleModalInstance(false)">Acknowledge</button>
-  </div>
-</div>
-
-<!-- FOOTER -->
+<!-- ══════════════════════════════════════
+     FOOTER
+     ══════════════════════════════════════ -->
 <footer>
+  <!-- ✏️ Your name and year -->
   © 2026 Armand Lixon. All rights reserved.
 </footer>
 
 <script>
-  // Fade-in on scroll Observer
+  // Fade-in on scroll
   const observer = new IntersectionObserver(
     (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
     { threshold: 0.1 }
   );
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-  // 1. PURE PARALLAX EFFECT FOR HERO ELEMENTS
-  window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const txtNode = document.getElementById('parallax-text');
-    const imgNode = document.getElementById('parallax-img');
-    
-    if (window.innerWidth > 768) {
-      txtNode.style.transform = `translateY(${scrolled * 0.12}px)`;
-      imgNode.style.transform = `translateY(${scrolled * 0.22}px)`;
-    } else {
-      txtNode.style.transform = 'none';
-      imgNode.style.transform = 'none';
-    }
-  });
-
-  // 2. PROJECT SLIDER/CAROUSEL CONTROLS
-  const carousel = document.getElementById('carousel');
-  document.getElementById('nextBtn').addEventListener('click', () => {
-    carousel.scrollBy({ left: carousel.offsetWidth * 0.6, behavior: 'smooth' });
-  });
-  document.getElementById('prevBtn').addEventListener('click', () => {
-    carousel.scrollBy({ left: -carousel.offsetWidth * 0.6, behavior: 'smooth' });
-  });
-
-  // 3. SECURE INTERACTIVE MODAL ACTIONS
-  const overlay = document.getElementById('modalOverlay');
-  const mTitle = document.getElementById('modalTitle');
-  const mBody = document.getElementById('modalBody');
-
-  function openModal(title, text) {
-    mTitle.innerText = title;
-    mBody.innerText = text;
-    toggleModalInstance(true);
-  }
-
-  function toggleModalInstance(show) {
-    if (show) overlay.classList.add('active');
-    else overlay.classList.remove('active');
-  }
-
-  function closeModal(e) {
-    if (e.target === overlay) toggleModalInstance(false);
-  }
 </script>
 </body>
 </html>
