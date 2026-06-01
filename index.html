@@ -658,254 +658,111 @@ int bfs_solver(int **maze, int rows, int cols)
 <section id="projects">
   <h2 class="section-heading fade-in">Systems &amp; Algorithmic Projects</h2>
 
-  <div class="projects-list">
+  <div class="carousel-controls fade-in">
+    <button class="btn-nav" id="prevBtn">[ ← PREV ]</button>
+    <button class="btn-nav" id="nextBtn">[ NEXT → ]</button>
+  </div>
 
-    <!-- ════ PROJECT 1: A-maze-d ════ -->
-    <div class="project-card fade-in">
-      <div class="project-header">
-        <h3 class="project-title">A-maze-d</h3>
-        <div class="project-tags">
-          <span class="tag">C</span>
-          <span class="tag">Graph Theory</span>
-          <span class="tag">BFS</span>
-          <span class="tag">Algorithms</span>
-        </div>
-      </div>
-      <p class="project-subtitle">Multi-Robot Pathfinding Engine</p>
-      <p class="project-desc">
-        A high-performance multi-robot pathfinding solver in C. Solves complex mazes by computing
-        optimal distances using a reverse BFS from the exit in O(R+T), extracts non-overlapping
-        shortest paths, distributes robots based on traversal costs, and prevents collisions turn-by-turn.
-      </p>
+  <div class="carousel-container fade-in">
+    <div class="projects-carousel" id="carousel">
 
-      <p class="pipeline-label">Execution Pipeline</p>
-      <div class="pipeline">
-        <div class="pipeline-step">
-          <p class="step-num">01</p>
-          <p class="step-name">Reverse BFS</p>
-          <p class="step-desc">O(R+T) exit distance compute</p>
+      <div class="project-card">
+        <div class="project-header">
+          <h3 class="project-title">A-maze-d</h3>
+          <div class="project-tags">
+            <span class="tag">C</span>
+            <span class="tag">Graph Theory</span>
+            <span class="tag">BFS</span>
+          </div>
         </div>
-        <div class="pipeline-step">
-          <p class="step-num">02</p>
-          <p class="step-name">Optimal Paths</p>
-          <p class="step-desc">Extract non-overlapping paths</p>
-        </div>
-        <div class="pipeline-step">
-          <p class="step-num">03</p>
-          <p class="step-name">Distribution</p>
-          <p class="step-desc">Intelligent balancing on cost</p>
-        </div>
-        <div class="pipeline-step">
-          <p class="step-num">04</p>
-          <p class="step-name">Anti-Collision</p>
-          <p class="step-desc">Lock-free turn-by-turn planning</p>
+        <p class="project-subtitle">// Multi-Robot Pathfinding Engine</p>
+        <p class="project-desc">
+          A high-performance multi-robot pathfinding solver in C. Solves complex mazes by computing optimal distances using a reverse BFS from the exit in O(R+T), extracts non-overlapping shortest paths, distributes robots based on traversal costs, and prevents collisions turn-by-turn.
+        </p>
+        <div class="project-footer">
+          <a href="https://github.com/ArmandLIX/A-maze-d" target="_blank" class="btn-project-link">[ GITHUB ]</a>
+          <button class="btn-project-link" onclick="expandProject('A-maze-d', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Architecture analysis of pathfinding modules. Multi-robot deployment running a reverse Breadth-First-Search calculation to isolate grid steps and bypass collision loops.')">[ EXPAND ]</button>
         </div>
       </div>
 
-      <div class="project-footer">
-        <a href="https://github.com/ArmandLIX/A-maze-d" target="_blank" class="btn-github">
-          ⬡ View on GitHub
-        </a>
+      <div class="project-card">
+        <div class="project-header">
+          <h3 class="project-title">minishell_2</h3>
+          <div class="project-tags">
+            <span class="tag">C</span>
+            <span class="tag">Unix API</span>
+            <span class="tag">Processus</span>
+          </div>
+        </div>
+        <p class="project-subtitle">// Custom Unix Shell Interpreter</p>
+        <p class="project-desc">
+          A complete command-line interpreter reproducing core Unix shell functionalities. Built in C, it features advanced process management, logical operators (&&, ||), pipes (|), complex redirections (>, >>, <, <<), and built-in command management with rigorous error handling.
+        </p>
+        <div class="project-footer">
+          <a href="https://github.com/ArmandLIX/MY_minishell" target="_blank" class="btn-project-link">[ GITHUB ]</a>
+          <button class="btn-project-link" onclick="expandProject('minishell_2', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Custom Unix shell kernel tracking tree nodes. Supports parsing arrays, pipes logic redirection, and asynchronous tracking protocols across process nodes.')">[ EXPAND ]</button>
+        </div>
       </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3 class="project-title">My_radar</h3>
+          <div class="project-tags">
+            <span class="tag">C</span>
+            <span class="tag">CSFML</span>
+            <span class="tag">Quadtree</span>
+          </div>
+        </div>
+        <p class="project-subtitle">// Air Traffic Control Simulator</p>
+        <p class="project-desc">
+          A dynamic 2D air traffic simulation rendering thousands of aircraft and control towers in real-time. Powered by CSFML, it implements a highly optimized Quadtree spatial partitioning algorithm to reduce collision-detection complexity from O(N²) to O(N log N).
+        </p>
+        <div class="project-footer">
+          <a href="https://github.com/ArmandLIX/MY_radar" target="_blank" class="btn-project-link">[ GITHUB ]</a>
+          <button class="btn-project-link" onclick="expandProject('My_radar', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Real-time spatial distribution model using Quadtree grids to compress complex object maps from native O(N²) limits down to O(N log N) rendering structures.')">[ EXPAND ]</button>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3 class="project-title">My_mouli</h3>
+          <div class="project-tags">
+            <span class="tag">JS</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">Automation</span>
+          </div>
+        </div>
+        <p class="project-subtitle">// Automated Testing Framework</p>
+        <p class="project-desc">
+          A custom unit-testing and code style analysis tool built specifically to mirror Epitech's automated grading system. It runs local test suites, checks formatting guidelines, monitors memory leaks, and generates precise reports to bulletproof code before delivery.
+        </p>
+        <div class="project-footer">
+          <a href="https://github.com/ArmandLIX/My_mouli" target="_blank" class="btn-project-link">[ GITHUB ]</a>
+          <button class="btn-project-link" onclick="expandProject('My_mouli', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Linter scan, Makefile automated workspace builder and memory testing suite runner with advanced logging outputs.')">[ EXPAND ]</button>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <h3 class="project-title">Epytodo</h3>
+          <div class="project-tags">
+            <span class="tag">Node.js</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">Express</span>
+          </div>
+        </div>
+        <p class="project-subtitle">// Full-Stack Task Management Web Application</p>
+        <p class="project-desc">
+          A secure web ecosystem engineered for productivity tracking. Features a robust backend REST API built with Express and MySQL for relational data persistence, combined with an intuitive web front-end handling user registration, JWT authentication, and interactive task monitoring.
+        </p>
+        <div class="project-footer">
+          <a href="https://github.com/ArmandLIX/Epytodo" target="_blank" class="btn-project-link">[ GITHUB ]</a>
+          <button class="btn-project-link" onclick="expandProject('Epytodo', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Full-stack user workspace pipeline. Implements relational database schemas, middleware authentications, and CRUD endpoints mapping task state mutations.')">[ EXPAND ]</button>
+        </div>
+      </div>
+
     </div>
-
-    <!-- ════ PROJECT 2: minishell_2 ════ -->
-    <div class="project-card fade-in">
-      <div class="project-header">
-        <h3 class="project-title">minishell_2</h3>
-        <div class="project-tags">
-          <span class="tag">C</span>
-          <span class="tag">Unix API</span>
-          <span class="tag">Processus</span>
-          <span class="tag">Architecture</span>
-        </div>
-      </div>
-      <p class="project-subtitle">Custom Unix Shell Interpreter</p>
-      <p class="project-desc">
-        A complete command-line interpreter reproducing core Unix shell functionalities. Built in C, 
-        it features advanced process management, logical operators (&&, ||), pipes (|), complex 
-        redirections (>, >>, <, <<), and built-in command management with rigorous error handling.
-      </p>
-
-      <p class="pipeline-label">Execution Pipeline</p>
-      <div class="pipeline">
-        <div class="pipeline-step">
-          <p class="step-num">01</p>
-          <p class="step-name">Lexing & Parsing</p>
-          <p class="step-desc">Tokenize user command line</p>
-        </div>
-        <div class="pipeline-step">
-          <p class="step-num">02</p>
-          <p class="step-name">AST Build</p>
-          <p class="step-desc">Construct execution tree</p>
-        </div>
-        <div class="pipeline-step">
-          <p class="step-num">03</p>
-          <p class="step-name">Fork & Pipe</p>
-          <p class="step-desc">Manage redirections & IPC</p>
-        </div>
-        <div class="pipeline-step">
-          <p class="step-num">04</p>
-          <p class="step-name">Execute</p>
-          <p class="step-desc">Run builtins or execve</p>
-        </div>
-      </div>
-
-      <div class="project-footer">
-        <a href="https://github.com/ArmandLIX/MY_minishell" target="_blank" class="btn-github">
-          ⬡ View on GitHub
-        </a>
-      </div>
-    </div>
-
-    <!-- ════ PROJECT 3: My_radar ════ -->
-    <div class="project-card fade-in">
-      <div class="project-header">
-        <h3 class="project-title">My_radar</h3>
-        <div class="project-tags">
-          <span class="tag">C</span>
-          <span class="tag">CSFML</span>
-          <span class="tag">Quadtree</span>
-          <span class="tag">2D Simulation</span>
-        </div>
-      </div>
-      <p class="project-subtitle">Air Traffic Control Simulator</p>
-      <p class="project-desc">
-        A dynamic 2D air traffic simulation rendering thousands of aircraft and control towers in real-time. 
-        Powered by CSFML, it implements a highly optimized Quadtree spatial partitioning algorithm to 
-        reduce collision-detection complexity from O(N²) to O(N log N).
-      </p>
-
-      <p class="pipeline-label">Execution Pipeline</p>
-      <div class="pipeline">
-        <div class="pipeline-step">
-          <p class="step-num">01</p>
-          <p class="step-name">Parse Script</p>
-          <p class="step-desc">Load aircraft & tower data</p>
-        </div>
-        <div class="pipeline-step">
-          <p class="step-num">02</p>
-          <p class="step-name">Quadtree Build</p>
-          <p class="step-desc">Subdivide 2D workspace</p>
-        </div>
-        <div class="pipeline-step">
-          <p class="step-num">03</p>
-          <p class="step-name">Collision Update</p>
-          <p class="step-desc">Check intersections</p>
-        </div>
-        <div class="pipeline-step">
-          <p class="step-num">04</p>
-          <p class="step-name">Render</p>
-          <p class="step-desc">Draw sprites and hitboxes</p>
-        </div>
-      </div>
-
-      <div class="project-footer">
-        <a href="https://github.com/ArmandLIX/MY_radar" target="_blank" class="btn-github">
-          ⬡ View on GitHub
-        </a>
-      </div>
-    </div>
-
-    <!-- ════ PROJECT 4: My_mouli ════ -->
-    <div class="project-card fade-in">
-      <div class="project-header">
-        <h3 class="project-title">My_mouli</h3>
-        <div class="project-tags">
-          <span class="tag">JavaScript</span>
-          <span class="tag">Node.js</span>
-          <span class="tag">Automation</span>
-          <span class="tag">Testing</span>
-        </div>
-      </div>
-      <p class="project-subtitle">Automated Testing Framework</p>
-      <p class="project-desc">
-        A custom unit-testing and code style analysis tool built specifically to mirror Epitech's automated 
-        grading system. It runs local test suites, checks formatting guidelines, monitors memory leaks, 
-        and generates precise reports to bulletproof code before delivery.
-      </p>
-
-      <p class="pipeline-label">Execution Pipeline</p>
-      <div class="pipeline">
-        <div class="pipeline-step">
-          <p class="step-num">01</p>
-          <p class="step-name">Linter Scan</p>
-          <p class="step-desc">Check Epitech code style</p>
-        </div>
-        <div class="pipeline-step">
-          <p class="step-num">02</p>
-          <p class="step-name">Compilation</p>
-          <p class="step-desc">Build workspace via Makefile</p>
-        </div>
-        <div class="pipeline-step">
-          <p class="step-num">03</p>
-          <p class="step-name">Test Runner</p>
-          <p class="step-desc">Inject inputs & catch outputs</p>
-        </div>
-        <div class="pipeline-step">
-          <p class="step-num">04</p>
-          <p class="step-name">Logs Report</p>
-          <p class="step-desc">Output summary & crash diffs</p>
-        </div>
-      </div>
-
-      <div class="project-footer">
-        <a href="https://github.com/ArmandLIX/My_mouli" target="_blank" class="btn-github">
-          ⬡ View on GitHub
-        </a>
-      </div>
-    </div>
-
-    <!-- ════ PROJECT 5: Epytodo ════ -->
-    <div class="project-card fade-in">
-      <div class="project-header">
-        <h3 class="project-title">Epytodo</h3>
-        <div class="project-tags">
-          <span class="tag">Node.js</span>
-          <span class="tag">MySQL</span>
-          <span class="tag">REST API</span>
-          <span class="tag">Express</span>
-        </div>
-      </div>
-      <p class="project-subtitle">Full-Stack Task Management Web Application</p>
-      <p class="project-desc">
-        A secure web ecosystem engineered for productivity tracking. Features a robust backend REST API built 
-        with Express and MySQL for relational data persistence, combined with an intuitive web front-end 
-        handling user registration, JWT authentication, and interactive task monitoring.
-      </p>
-
-      <p class="pipeline-label">Execution Pipeline</p>
-      <div class="pipeline">
-        <div class="pipeline-step">
-          <p class="step-num">01</p>
-          <p class="step-name">Auth / JWT</p>
-          <p class="step-desc">Secure registration & login</p>
-        </div>
-        <div class="pipeline-step">
-          <p class="step-num">02</p>
-          <p class="step-name">API Request</p>
-          <p class="step-desc">Route handling & middleware</p>
-        </div>
-        <div class="pipeline-step">
-          <p class="step-num">03</p>
-          <p class="step-name">SQL Query</p>
-          <p class="step-desc">CRUD actions on database</p>
-        </div>
-        <div class="pipeline-step">
-          <p class="step-num">04</p>
-          <p class="step-name">UI Render</p>
-          <p class="step-desc">Dynamic task status update</p>
-        </div>
-      </div>
-
-      <div class="project-footer">
-        <a href="https://github.com/ArmandLIX/Epytodo" target="_blank" class="btn-github">
-          ⬡ View on GitHub
-        </a>
-      </div>
-    </div>
-
-  </div><!-- /projects-list -->
+  </div>
 </section>
 
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
