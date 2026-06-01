@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Armand Lixon — Portfolio</title>
+<title>Armand Lixon — Cyber Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
 <style>
   /* =============================================
-     ✏️  DESIGN TOKENS — change these to restyle
+     ✏️  DESIGN TOKENS — Matrix Terminal Edition
      ============================================= */
   :root {
-    --bg:        #0a0a0a;
-    --surface:   #141414;
-    --border:    #222;
-    --accent:    #00e5a0;
-    --accent2:   #00b87a;
-    --text:      #e8e8e8;
-    --muted:     #888;
+    --bg:        #050505;
+    --surface:   #0f0f0f;
+    --border:    #1a3a2a; /* Lignes vertes sombres */
+    --accent:    #00ff9d; /* Vert Matrix brillant */
+    --accent-dim:#005c38;
+    --text:      #d1f7e8;
+    --muted:     #5c7a6e;
     --mono:      'Space Mono', monospace;
     --sans:      'Syne', sans-serif;
   }
@@ -42,7 +42,7 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 0 2.5rem;
     height: 56px;
-    background: rgba(10,10,10,0.85);
+    background: rgba(5,5,5,0.9);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
@@ -51,7 +51,7 @@
     font-size: .75rem;
     letter-spacing: .18em;
     text-transform: uppercase;
-    color: var(--text);
+    color: var(--accent);
   }
   .nav-links { display: flex; gap: 2rem; }
   .nav-links a {
@@ -68,54 +68,74 @@
   section { padding: 6rem 2.5rem; max-width: 1200px; margin: 0 auto; }
   section:first-of-type { padding-top: 9rem; }
 
-  /* ============ HERO (PARALLAX OPTIMIZED) ============ */
-  .hero-container {
+  /* ============ HERO (TERMINAL PARALLAX) ============ */
+  .hero { display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: start; }
+  
+  /* L'ambiance de terminal qui va bouger au scroll */
+  .terminal-frame {
+    background: #020b06;
+    border: 1px solid var(--border);
+    padding: 2rem;
     position: relative;
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.05);
     will-change: transform;
   }
-  .hero { display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: start; }
+  .terminal-header {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  .terminal-prompt {
+    font-family: var(--mono);
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
   .hero-tag {
     font-family: var(--mono);
     font-size: .65rem;
     letter-spacing: .2em;
     text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1rem;
+    color: var(--muted);
   }
   .hero-name {
-    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
     font-weight: 800;
     line-height: 1.05;
     margin-bottom: 1.5rem;
   }
-  .hero-name span { color: var(--accent); }
+  .hero-name span { color: var(--accent); text-shadow: 0 0 10px rgba(0, 255, 157, 0.3); }
   .hero-badge {
     display: inline-block;
     border: 1px solid var(--border);
-    border-left: 3px solid var(--accent);
-    background: var(--surface);
+    background: rgba(0, 255, 157, 0.03);
     padding: .6rem 1.2rem;
     font-family: var(--mono);
     font-size: .75rem;
     margin-bottom: 2rem;
-    letter-spacing: .04em;
+    color: var(--accent);
   }
   .hero-bio {
     max-width: 600px;
-    color: var(--muted);
-    font-size: 1rem;
-    line-height: 1.75;
-    margin-bottom: 2.5rem;
+    color: var(--text);
+    font-size: 0.95rem;
+    opacity: 0.85;
   }
+  
   .hero-photo-wrap {
     will-change: transform;
+    margin-top: 2rem;
   }
   .hero-photo {
     width: 200px; height: 200px;
-    border-radius: 50%;
-    border: 2px solid var(--accent);
+    border-radius: 4px;
+    border: 1px solid var(--accent);
     object-fit: cover;
-    flex-shrink: 0;
+    filter: grayscale(30%) sepia(20%) hue-rotate(85deg); /* Effet moniteur vert */
   }
 
   /* ============ TRAIT CARDS ============ */
@@ -130,7 +150,6 @@
   .trait-card {
     background: var(--surface);
     padding: 1.8rem 1.5rem;
-    border-left: 3px solid var(--accent);
   }
   .trait-title {
     font-family: var(--mono);
@@ -138,24 +157,19 @@
     letter-spacing: .18em;
     text-transform: uppercase;
     margin-bottom: .8rem;
-    color: var(--text);
-    font-weight: 700;
+    color: var(--accent);
   }
-  .trait-body { font-size: .875rem; color: var(--muted); line-height: 1.65; }
+  .trait-body { font-size: .875rem; color: var(--muted); }
 
   /* ============ SECTION HEADING ============ */
   .section-heading {
     font-size: clamp(1.8rem, 4vw, 2.8rem);
     font-weight: 800;
     margin-bottom: 3rem;
-    position: relative;
   }
-  .section-heading::after {
-    content: '';
-    display: block;
-    width: 3rem; height: 3px;
-    background: var(--accent);
-    margin-top: .6rem;
+  .section-heading::before {
+    content: '>> ';
+    color: var(--accent);
   }
 
   /* ============ TECH STACK ============ */
@@ -171,251 +185,130 @@
     display: flex; flex-direction: column; align-items: center; gap: .5rem;
     font-family: var(--mono);
     font-size: .7rem;
-    letter-spacing: .08em;
     color: var(--muted);
-    transition: border-color .2s, color .2s;
-    cursor: default;
+    transition: all .2s;
   }
-  .stack-item:hover { border-color: var(--accent); color: var(--text); }
-  .stack-icon { font-size: 1.5rem; }
+  .stack-item:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,255,157,0.02); }
 
-  /* ============ CAROUSEL PROJECTS ============ */
-  .carousel-container {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-  }
-  .projects-carousel {
-    display: flex;
-    gap: 2rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    scrollbar-width: none; /* Firefox */
-    padding-bottom: 1rem;
-  }
-  .projects-carousel::-webkit-scrollbar {
-    display: none; /* Safari/Chrome */
-  }
-  .project-card {
-    flex: 0 0 calc(100% - 1rem);
-    scroll-snap-align: start;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 2rem 2rem 1.5rem;
-    transition: border-color .2s;
-  }
-  @media (min-width: 768px) {
-    .project-card { flex: 0 0 calc(50% - 1rem); }
-  }
-  @media (min-width: 1024px) {
-    .project-card { flex: 0 0 calc(100% / 1.5); }
-  }
-  .project-card:hover { border-color: var(--accent); }
-  .project-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; margin-bottom: .3rem; }
-  .project-title { font-size: 1.4rem; font-weight: 700; }
-  .project-tags { display: flex; gap: .4rem; flex-wrap: wrap; }
-  .tag {
-    font-family: var(--mono);
-    font-size: .6rem;
-    letter-spacing: .08em;
-    padding: .25rem .6rem;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    background: var(--bg);
-  }
-  .project-subtitle { font-family: var(--mono); font-size: .7rem; color: var(--accent); letter-spacing: .1em; margin-bottom: 1rem; }
-  .project-desc { color: var(--muted); font-size: .9rem; line-height: 1.7; margin-bottom: 1.5rem; }
-  
-  .pipeline-label {
-    font-family: var(--mono);
-    font-size: .55rem;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: .8rem;
-  }
-  .pipeline {
-    display: flex; gap: 0; flex-wrap: wrap;
-    border: 1px solid var(--border);
-  }
-  .pipeline-step {
-    flex: 1; min-width: 120px;
-    padding: .8rem 1rem;
-    border-right: 1px solid var(--border);
-    position: relative;
-  }
-  .pipeline-step:last-child { border-right: none; }
-  .step-num {
-    font-family: var(--mono);
-    font-size: .6rem;
-    color: var(--accent);
-    margin-bottom: .25rem;
-  }
-  .step-name { font-family: var(--mono); font-size: .75rem; font-weight: 700; margin-bottom: .25rem; }
-  .step-desc { font-size: .75rem; color: var(--muted); }
-  .project-footer { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem; }
-  
-  /* Carousel Controls */
+  /* ============ PROJECTS CAROUSEL WITH EXPANDABLE IMAGES ============ */
   .carousel-controls {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+    display: flex; justify-content: flex-end; gap: 1rem; margin-bottom: 1.5rem;
   }
   .btn-nav {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: .5rem 1rem;
-    font-family: var(--mono);
-    font-size: .8rem;
-    cursor: pointer;
-    transition: border-color .2s, color .2s;
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--accent); padding: .5rem 1rem; font-family: var(--mono); cursor: pointer;
   }
-  .btn-nav:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-nav:hover { background: var(--accent); color: #000; }
 
-  .btn-github, .btn-info {
-    font-family: var(--mono);
-    font-size: .65rem;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    padding: .55rem 1.2rem;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    display: flex; align-items: center; gap: .5rem;
-    cursor: pointer;
-    transition: border-color .2s, color .2s;
+  .carousel-container { width: 100%; overflow: hidden; }
+  .projects-carousel {
+    display: flex; gap: 2rem; overflow-x: auto;
+    scroll-snap-type: x mandatory; scrollbar-width: none;
+    padding-bottom: 1rem;
   }
-  .btn-github:hover, .btn-info:hover { border-color: var(--accent); color: var(--accent); }
+  .projects-carousel::-webkit-scrollbar { display: none; }
+  
+  .project-card {
+    flex: 0 0 calc(100% - 1rem); scroll-snap-align: start;
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 2rem; display: flex; flex-direction: column; justify-between: space-between;
+  }
+  @media (min-width: 768px) { .project-card { flex: 0 0 calc(50% - 1rem); } }
+  
+  /* Visual Container inside card */
+  .project-visual-preview {
+    width: 100%; height: 140px; background: #05140b;
+    border: 1px dashed var(--border); margin-bottom: 1.5rem;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; position: relative; cursor: pointer;
+  }
+  .project-visual-preview img {
+    width: 100%; height: 100%; object-fit: cover; opacity: 0.4;
+    transition: opacity 0.3s;
+  }
+  .project-visual-preview:hover img { opacity: 0.8; }
+  .visual-overlay-text {
+    position: absolute; font-family: var(--mono); font-size: 0.6rem;
+    color: var(--accent); border: 1px solid var(--accent); padding: 0.3rem 0.6rem;
+    background: var(--bg); pointer-events: none;
+  }
+
+  .project-header { display: flex; justify-content: space-between; margin-bottom: .5rem; }
+  .project-title { font-size: 1.3rem; font-weight: 700; color: #fff; }
+  .tag { font-family: var(--mono); font-size: .6rem; padding: .25rem .6rem; border: 1px solid var(--border); color: var(--accent); margin-left: 0.3rem;}
+  .project-subtitle { font-family: var(--mono); font-size: .7rem; color: var(--muted); margin-bottom: 1rem; }
+  .project-desc { color: var(--muted); font-size: .85rem; margin-bottom: 1.5rem; }
+
+  .project-footer { display: flex; justify-content: flex-end; gap: 1rem; margin-top: auto; }
+  .btn-github, .btn-expand {
+    font-family: var(--mono); font-size: .65rem; padding: .55rem 1.2rem;
+    border: 1px solid var(--border); color: var(--text); cursor: pointer;
+  }
+  .btn-github:hover, .btn-expand:hover { border-color: var(--accent); color: var(--accent); }
 
   /* ============ CONTACT ============ */
-  .contact-wrap {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-    border-top: 1px solid var(--border);
-    padding-top: 4rem;
-  }
-  .contact-label {
-    font-family: var(--mono);
-    font-size: .65rem;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: .8rem;
-  }
-  .contact-heading { font-size: 2rem; font-weight: 800; margin-bottom: .5rem; }
-  .contact-sub { color: var(--muted); font-size: .9rem; }
-  .contact-links { display: flex; flex-direction: column; gap: .75rem; align-items: flex-end; }
-  .btn-primary {
-    font-family: var(--mono);
-    font-size: .65rem;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    padding: .75rem 1.6rem;
-    background: var(--accent);
-    color: #000;
-    font-weight: 700;
-    cursor: pointer;
-    transition: opacity .2s;
-  }
-  .btn-primary:hover { opacity: .85; }
-  .btn-outline {
-    font-family: var(--mono);
-    font-size: .65rem;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    padding: .75rem 1.6rem;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    transition: border-color .2s, color .2s;
-  }
+  .contact-wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; border-top: 1px solid var(--border); padding-top: 4rem; }
+  .contact-heading { font-size: 2rem; font-weight: 800; }
+  .btn-primary { font-family: var(--mono); font-size: .65rem; padding: .75rem 1.6rem; background: var(--accent); color: #000; font-weight: 700; }
+  .btn-outline { font-family: var(--mono); font-size: .65rem; padding: .75rem 1.6rem; border: 1px solid var(--border); color: var(--muted); }
   .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-  .contact-row { display: flex; gap: .75rem; }
-  .contact-email {
-    font-family: var(--mono);
-    font-size: .7rem;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    padding: .55rem 1.1rem;
-  }
+  .contact-email { font-family: var(--mono); font-size: .7rem; color: var(--accent); border: 1px solid var(--accent); padding: .55rem 1.1rem; }
 
-  /* ============ MODAL SYSTEM ============ */
+  /* ============ MODAL SYSTEM (IMAGE EXPAND) ============ */
   .modal-overlay {
     position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(10, 10, 10, 0.85);
-    backdrop-filter: blur(8px);
-    z-index: 200;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; pointer-events: none;
-    transition: opacity .3s ease;
+    background: rgba(3, 10, 6, 0.95); backdrop-filter: blur(8px);
+    z-index: 200; display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity .3s ease;
   }
   .modal-overlay.active { opacity: 1; pointer-events: auto; }
   .modal-box {
-    background: var(--surface);
-    border: 1px solid var(--accent);
-    padding: 2.5rem;
-    max-width: 550px; width: 90%;
-    position: relative;
-    transform: translateY(20px);
-    transition: transform .3s ease;
+    background: var(--surface); border: 1px solid var(--accent);
+    padding: 1.5rem; max-width: 800px; width: 92%; position: relative;
+    transform: scale(0.95); transition: transform .3s ease;
   }
-  .modal-overlay.active .modal-box { transform: translateY(0); }
+  .modal-overlay.active .modal-box { transform: scale(1); }
   .modal-close {
-    position: absolute; top: 1rem; right: 1rem;
-    background: none; border: none;
-    color: var(--muted); font-family: var(--mono);
-    font-size: 1.2rem; cursor: pointer;
+    position: absolute; top: -2.5rem; right: 0;
+    background: none; border: none; color: var(--accent);
+    font-family: var(--mono); font-size: 1rem; cursor: pointer;
   }
-  .modal-close:hover { color: var(--accent); }
-  .modal-title { font-size: 1.8rem; margin-bottom: 1rem; font-weight: 800; }
-  .modal-body { color: var(--muted); font-size: .95rem; margin-bottom: 1.5rem; }
+  .modal-expanded-img {
+    width: 100%; max-height: 400px; object-fit: cover;
+    border: 1px solid var(--border); margin-bottom: 1.5rem;
+  }
+  .modal-title { font-size: 1.6rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; font-family: var(--sans); }
+  .modal-body { color: var(--muted); font-size: .9rem; font-family: var(--mono); line-height: 1.6; }
 
   /* ============ FOOTER ============ */
-  footer {
-    text-align: center;
-    padding: 2rem;
-    font-family: var(--mono);
-    font-size: .6rem;
-    color: var(--muted);
-    letter-spacing: .12em;
-    border-top: 1px solid var(--border);
-  }
-
-  /* ============ FADE-IN ANIMATION ============ */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity .6s ease, transform .6s ease;
-  }
+  footer { text-align: center; padding: 2rem; font-family: var(--mono); font-size: .6rem; color: var(--muted); border-top: 1px solid var(--border); }
+  .fade-in { opacity: 0; transform: translateY(20px); transition: all .6s ease; }
   .fade-in.visible { opacity: 1; transform: none; }
-
-  /* ============ SCROLLBAR ============ */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border); }
 </style>
 </head>
 <body>
 
 <!-- NAVBAR -->
 <nav>
-  <span class="nav-logo">Armand Lixon</span>
+  <span class="nav-logo">armand@lixon:~$_</span>
   <div class="nav-links">
-    <a href="#about">About</a>
-    <a href="#stack">Stack</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
+    <a href="#about">./about</a>
+    <a href="#stack">./stack</a>
+    <a href="#projects">./projects</a>
+    <a href="#contact">./contact</a>
   </div>
 </nav>
 
-<!-- HERO SECTON (With Parallax Structural Layout) -->
+<!-- HERO SECTION (Parallax System Core) -->
 <section id="about">
   <div class="hero fade-in">
-    <div class="hero-container" id="parallax-text">
+    <!-- Le terminal qui glissera de manière asynchrone -->
+    <div class="terminal-frame" id="parallax-terminal">
+      <div class="terminal-header">
+        <span>sys_status.sh</span>
+        <span>● active</span>
+      </div>
+      <p class="terminal-prompt">armand@lixon:~$: cat intro.md</p>
       <p class="hero-tag">Software Engineering Student</p>
       <h1 class="hero-name">Armand <span>Lixon</span></h1>
       <div class="hero-badge">Looking for a 4-month Development internship in Barcelona.</div>
@@ -427,7 +320,8 @@
       </p>
     </div>
 
-    <div class="hero-photo-wrap" id="parallax-img">
+    <!-- La photo qui bougera sur une autre amplitude -->
+    <div class="hero-photo-wrap" id="parallax-photo">
       <img class="hero-photo" src="https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png" alt="Armand Lixon" />
     </div>
   </div>
@@ -469,141 +363,101 @@
   </div>
 </section>
 
-<!-- PROJECTS (With Horizontal Slider/Carousel) -->
+<!-- PROJECTS (Carousel + Expand Image Modals) -->
 <section id="projects">
   <h2 class="section-heading fade-in">Systems &amp; Algorithmic Projects</h2>
 
-  <!-- Controls -->
   <div class="carousel-controls fade-in">
-    <button class="btn-nav" id="prevBtn">← Prev</button>
-    <button class="btn-nav" id="nextBtn">Next →</button>
+    <button class="btn-nav" id="prevBtn">[ PREV ]</button>
+    <button class="btn-nav" id="nextBtn">[ NEXT ]</button>
   </div>
 
   <div class="carousel-container fade-in">
     <div class="projects-carousel" id="carousel">
 
-      <!-- PROJECT 1: A-maze-d -->
+      <!-- PROJECT 1 -->
       <div class="project-card">
+        <!-- Conteneur d'image cliquable pour étendre -->
+        <div class="project-visual-preview" onclick="expandProject('A-maze-d', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Architecture analysis of pathfinding modules. Multi-robot deployment running a reverse Breadth-First-Search calculation to isolate grid steps and bypass collision loops.')">
+          <img src="https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png" alt="A-maze-d visual" />
+          <div class="visual-overlay-text">⬡ EXPAND VISUAL</div>
+        </div>
         <div class="project-header">
           <h3 class="project-title">A-maze-d</h3>
-          <div class="project-tags">
-            <span class="tag">C</span>
-            <span class="tag">Graph Theory</span>
-            <span class="tag">BFS</span>
-          </div>
+          <div><span class="tag">C</span><span class="tag">BFS</span></div>
         </div>
         <p class="project-subtitle">Multi-Robot Pathfinding Engine</p>
-        <p class="project-desc">
-          A high-performance multi-robot pathfinding solver in C. Solves complex mazes by computing optimal distances using a reverse BFS.
-        </p>
-        <p class="pipeline-label">Execution Pipeline</p>
-        <div class="pipeline">
-          <div class="pipeline-step"><p class="step-num">01</p><p class="step-name">Reverse BFS</p></div>
-          <div class="pipeline-step"><p class="step-num">02</p><p class="step-name">Optimal Paths</p></div>
-        </div>
+        <p class="project-desc">High-performance tracking solver bypassing overlapping grid routes safely.</p>
         <div class="project-footer">
-          <button class="btn-info" onclick="openModal('A-maze-d', 'This core algorithmic engine handles synchronized multi-agent cross-traversals without collisions, scaling to large graph grids smoothly.')">ℹ Details</button>
-          <a href="https://github.com/yourusername/a-maze-d" target="_blank" class="btn-github">⬡ GitHub</a>
+          <button class="btn-expand" onclick="expandProject('A-maze-d', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Architecture analysis of pathfinding modules. Multi-robot deployment running a reverse Breadth-First-Search calculation to isolate grid steps and bypass collision loops.')">Expand</button>
         </div>
       </div>
 
-      <!-- PROJECT 2: minishell_2 -->
+      <!-- PROJECT 2 -->
       <div class="project-card">
+        <div class="project-visual-preview" onclick="expandProject('minishell_2', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Custom Unix shell kernel tracking tree nodes. Supports parsing arrays, pipes logic redirection, and asynchronous tracking protocols across process nodes.')">
+          <img src="https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png" alt="minishell visual" />
+          <div class="visual-overlay-text">⬡ EXPAND VISUAL</div>
+        </div>
         <div class="project-header">
           <h3 class="project-title">minishell_2</h3>
-          <div class="project-tags">
-            <span class="tag">C</span>
-            <span class="tag">Unix API</span>
-            <span class="tag">Processus</span>
-          </div>
+          <div><span class="tag">C</span><span class="tag">API</span></div>
         </div>
         <p class="project-subtitle">Custom Unix Shell Interpreter</p>
-        <p class="project-desc">
-          A complete command-line interpreter reproducing core Unix shell functionalities featuring pipes, logical operators, and complex redirections.
-        </p>
-        <p class="pipeline-label">Execution Pipeline</p>
-        <div class="pipeline">
-          <div class="pipeline-step"><p class="step-num">01</p><p class="step-name">Parsing</p></div>
-          <div class="pipeline-step"><p class="step-num">02</p><p class="step-name">AST Build</p></div>
-        </div>
+        <p class="project-desc">Command-line runtime layer supporting advanced fork monitoring architectures.</p>
         <div class="project-footer">
-          <button class="btn-info" onclick="openModal('minishell_2', 'Re-architecturing a mini Unix system ecosystem. Focus on low level processes fork, execution paths, and memory tracking.')">ℹ Details</button>
-          <a href="https://github.com/ArmandLIX/MY_minishell" target="_blank" class="btn-github">⬡ GitHub</a>
+          <button class="btn-expand" onclick="expandProject('minishell_2', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Custom Unix shell kernel tracking tree nodes. Supports parsing arrays, pipes logic redirection, and asynchronous tracking protocols across process nodes.')">Expand</button>
         </div>
       </div>
 
-      <!-- PROJECT 3: My_radar -->
+      <!-- PROJECT 3 -->
       <div class="project-card">
+        <div class="project-visual-preview" onclick="expandProject('My_radar', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Real-time spatial distribution model using Quadtree grids to compress complex object maps from native O(N2) limits down to O(N log N) rendering structures.')">
+          <img src="https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png" alt="My_radar visual" />
+          <div class="visual-overlay-text">⬡ EXPAND VISUAL</div>
+        </div>
         <div class="project-header">
           <h3 class="project-title">My_radar</h3>
-          <div class="project-tags">
-            <span class="tag">C</span>
-            <span class="tag">CSFML</span>
-            <span class="tag">Quadtree</span>
-          </div>
+          <div><span class="tag">C</span><span class="tag">CSFML</span></div>
         </div>
         <p class="project-subtitle">Air Traffic Control Simulator</p>
-        <p class="project-desc">
-          A dynamic 2D air traffic simulation rendering thousands of aircraft in real-time utilizing spatial partitioning algorithms.
-        </p>
-        <p class="pipeline-label">Execution Pipeline</p>
-        <div class="pipeline">
-          <div class="pipeline-step"><p class="step-num">01</p><p class="step-name">Quadtree</p></div>
-          <div class="pipeline-step"><p class="step-num">02</p><p class="step-name">Collision</p></div>
-        </div>
+        <p class="project-desc">Quadtree partition engine checking intersecting boundaries inside structural areas.</p>
         <div class="project-footer">
-          <button class="btn-info" onclick="openModal('My_radar', 'By optimizing complex calculations from nested O(N²) collision checkpoints to clean O(N log N) grid steps, performance stayed locked at 60FPS.')">ℹ Details</button>
-          <a href="https://github.com/ArmandLIX/MY_radar" target="_blank" class="btn-github">⬡ GitHub</a>
+          <button class="btn-expand" onclick="expandProject('My_radar', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Real-time spatial distribution model using Quadtree grids to compress complex object maps from native O(N2) limits down to O(N log N) rendering structures.')">Expand</button>
         </div>
       </div>
 
-      <!-- PROJECT 4: My_mouli -->
+      <!-- PROJECT 4 -->
       <div class="project-card">
+        <div class="project-visual-preview" onclick="expandProject('My_mouli', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Automated workspace scanning structure looking for formatting rule breaks, active code style warnings, memory leakage logs, and testing outputs.')">
+          <img src="https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png" alt="My_mouli visual" />
+          <div class="visual-overlay-text">⬡ EXPAND VISUAL</div>
+        </div>
         <div class="project-header">
           <h3 class="project-title">My_mouli</h3>
-          <div class="project-tags">
-            <span class="tag">JS</span>
-            <span class="tag">Node.js</span>
-            <span class="tag">Automation</span>
-          </div>
+          <div><span class="tag">JS</span><span class="tag">Node</span></div>
         </div>
         <p class="project-subtitle">Automated Testing Framework</p>
-        <p class="project-desc">
-          A custom unit-testing and code style analysis tool built specifically to mirror Epitech\'s automated grading system natively.
-        </p>
-        <p class="pipeline-label">Execution Pipeline</p>
-        <div class="pipeline">
-          <div class="pipeline-step"><p class="step-num">01</p><p class="step-name">Linter Scan</p></div>
-          <div class="pipeline-step"><p class="step-num">02</p><p class="step-name">Test Runner</p></div>
-        </div>
+        <p class="project-desc">Automation script matching workspace checks to protect software builds before delivery steps.</p>
         <div class="project-footer">
-          <button class="btn-info" onclick="openModal('My_mouli', 'Scans workspaces instantly using automated parsing rules to secure high-quality standard compliance across distinct environments.')">ℹ Details</button>
-          <a href="https://github.com/ArmandLIX/My_mouli" target="_blank" class="btn-github">⬡ GitHub</a>
+          <button class="btn-expand" onclick="expandProject('My_mouli', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Automated workspace scanning structure looking for formatting rule breaks, active code style warnings, memory leakage logs, and testing outputs.')">Expand</button>
         </div>
       </div>
 
-      <!-- PROJECT 5: Epytodo -->
+      <!-- PROJECT 5 -->
       <div class="project-card">
+        <div class="project-visual-preview" onclick="expandProject('Epytodo Ecosystem', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Defensive design pattern overview. Implements safe JWT verification steps, database-level isolation policies, and password protection algorithms preventing data spoofing.')">
+          <img src="https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png" alt="Epytodo visual" />
+          <div class="visual-overlay-text">⬡ EXPAND VISUAL</div>
+        </div>
         <div class="project-header">
           <h3 class="project-title">Epytodo</h3>
-          <div class="project-tags">
-            <span class="tag">Node.js</span>
-            <span class="tag">MySQL</span>
-            <span class="tag">REST API</span>
-          </div>
+          <div><span class="tag">Node</span><span class="tag">MySQL</span></div>
         </div>
-        <p class="project-subtitle">Full-Stack Task Management Ecosystem</p>
-        <p class="project-desc">
-          A secure web ecosystem engineered for task tracking featuring cryptographical backend controls and a relational database.
-        </p>
-        <p class="pipeline-label">Execution Pipeline</p>
-        <div class="pipeline">
-          <div class="pipeline-step"><p class="step-num">01</p><p class="step-name">JWT Secure</p></div>
-          <div class="pipeline-step"><p class="step-num">02</p><p class="step-name">SQL Query</p></div>
-        </div>
+        <p class="project-subtitle">Full-Stack Secure Task Management</p>
+        <p class="project-desc">Ecosystem securing databases with credential cryptography layers and strict access rules.</p>
         <div class="project-footer">
-          <button class="btn-info" onclick="openModal('Epytodo Ecosystem', 'Implemented multi-tenant isolation, protecting routes from token spoofing and preventing workspace manipulation between distinct users.')">ℹ Details</button>
-          <a href="https://github.com/ArmandLIX/Epytodo" target="_blank" class="btn-github">⬡ GitHub</a>
+          <button class="btn-expand" onclick="expandProject('Epytodo Ecosystem', 'https://i.ibb.co/Qw45F2j/Screenshot-from-2026-06-01-11-33-38.png', 'Defensive design pattern overview. Implements safe JWT verification steps, database-level isolation policies, and password protection algorithms preventing data spoofing.')">Expand</button>
         </div>
       </div>
 
@@ -615,60 +469,59 @@
 <section id="contact">
   <div class="contact-wrap fade-in">
     <div>
-      <p class="contact-label">Get in touch</p>
-      <h2 class="contact-heading">Ready to build something together?</h2>
-      <p class="contact-sub">Available immediately for an internship in Barcelona.</p>
+      <p class="contact-heading">Ready to sync?</p>
+      <p style="color: var(--muted)">Available for engineering internships in Barcelona.</p>
     </div>
     <div class="contact-links">
       <div class="contact-row">
-        <a href="https://drive.google.com/drive/my-drive?hl=fr" class="btn-primary">⬇ Download my CV</a>
-        <button class="btn-outline" onclick="openModal('Contact Session', 'Drop me a direct email at lixon.armand@gmail.com, or knock on my LinkedIn messages. Let\'s setup a sync!')">Fast Connect</button>
-        <a href="https://github.com/ArmandLIX" target="_blank" class="btn-outline">GitHub</a>
+        <a href="https://drive.google.com/drive/my-drive?hl=fr" class="btn-primary">⬇ DOWNLOAD CV</a>
+        <a href="https://www.linkedin.com/in/armand-lixon-b31292338/" target="_blank" class="btn-outline">LINKEDIN</a>
       </div>
       <span class="contact-email">lixon.armand@gmail.com</span>
     </div>
   </div>
 </section>
 
-<!-- GLOBAL MODAL BOX SYSTEM -->
+<!-- IMAGE EXPAND GLOBAL MODAL SYSTEM -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal-box">
-    <button class="modal-close" onclick="toggleModalInstance(false)">✕</button>
-    <h3 class="modal-title" id="modalTitle">Project Analysis</h3>
-    <p class="modal-body" id="modalBody">Detailed system metrics go here.</p>
-    <button class="btn-primary" style="padding: .5rem 1rem;" onclick="toggleModalInstance(false)">Acknowledge</button>
+    <button class="modal-close" onclick="setModalState(false)">[ CLOSE X ]</button>
+    <img src="" id="modalImg" class="modal-expanded-img" alt="Expanded layout" />
+    <h3 class="modal-title" id="modalTitle">Project View</h3>
+    <p class="modal-body" id="modalBody">Description context.</p>
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
-  © 2026 Armand Lixon. All rights reserved.
+  © 2026 Armand Lixon — armand.lixon@epitech.eu
 </footer>
 
 <script>
-  // Fade-in on scroll Observer
+  // Fade-in element monitoring
   const observer = new IntersectionObserver(
     (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
     { threshold: 0.1 }
   );
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  // 1. PURE PARALLAX EFFECT FOR HERO ELEMENTS
+  // 1. TERMINAL & PHOTO ASYNC PARALLAX SCRIPT
   window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const txtNode = document.getElementById('parallax-text');
-    const imgNode = document.getElementById('parallax-img');
+    const offset = window.pageYOffset;
+    const terminal = document.getElementById('parallax-terminal');
+    const photo = document.getElementById('parallax-photo');
     
     if (window.innerWidth > 768) {
-      txtNode.style.transform = `translateY(${scrolled * 0.12}px)`;
-      imgNode.style.transform = `translateY(${scrolled * 0.22}px)`;
+      // Le terminal se deplace lentement vers le bas
+      terminal.style.transform = `translateY(${offset * 0.15}px)`;
+      // La photo descend plus rapidement pour creer la rupture de parallaxe
+      photo.style.transform = `translateY(${offset * 0.28}px) rotate(2deg)`;
     } else {
-      txtNode.style.transform = 'none';
-      imgNode.style.transform = 'none';
+      terminal.style.transform = 'none';
+      photo.style.transform = 'none';
     }
   });
 
-  // 2. PROJECT SLIDER/CAROUSEL CONTROLS
+  // 2. HORIZONTAL SLIDER NAVIGATION
   const carousel = document.getElementById('carousel');
   document.getElementById('nextBtn').addEventListener('click', () => {
     carousel.scrollBy({ left: carousel.offsetWidth * 0.6, behavior: 'smooth' });
@@ -677,24 +530,26 @@
     carousel.scrollBy({ left: -carousel.offsetWidth * 0.6, behavior: 'smooth' });
   });
 
-  // 3. SECURE INTERACTIVE MODAL ACTIONS
+  // 3. IMAGE EXPAND MODAL ARCHITECTURE
   const overlay = document.getElementById('modalOverlay');
   const mTitle = document.getElementById('modalTitle');
   const mBody = document.getElementById('modalBody');
+  const mImg = document.getElementById('modalImg');
 
-  function openModal(title, text) {
-    mTitle.innerText = title;
-    mBody.innerText = text;
-    toggleModalInstance(true);
+  function expandProject(title, imgSrc, technicalDetails) {
+    mTitle.innerText = `> ${title} — System_Logs`;
+    mImg.src = imgSrc;
+    mBody.innerText = technicalDetails;
+    setModalState(true);
   }
 
-  function toggleModalInstance(show) {
-    if (show) overlay.classList.add('active');
+  function setModalState(isActive) {
+    if (isActive) overlay.classList.add('active');
     else overlay.classList.remove('active');
   }
 
   function closeModal(e) {
-    if (e.target === overlay) toggleModalInstance(false);
+    if (e.target === overlay) setModalState(false);
   }
 </script>
 </body>
