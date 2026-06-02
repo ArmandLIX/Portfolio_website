@@ -436,25 +436,21 @@
     color: var(--accent); margin-bottom: .6rem;
   }
   .contact-heading { font-size: 2rem; font-weight: 800; color: var(--text-bright); margin-bottom: .4rem; }
-  .contact-sub { color: var(--muted-bright); font-size: .9rem; margin-bottom: .5rem; }
-  .contact-address { font-family: var(--mono); font-size: .75rem; color: var(--accent-dim); }
+  .contact-sub { color: var(--muted-bright); font-size: .9rem; }
   .contact-links { display: flex; flex-direction: column; gap: .75rem; align-items: flex-end; }
   .contact-row { display: flex; gap: .75rem; }
-  
   .btn-primary {
     font-family: var(--mono); font-size: .65rem; padding: .75rem 1.6rem;
     background: var(--accent); color: #000; font-weight: 700; letter-spacing: .1em;
-    transition: box-shadow .2s, opacity .2s; display: inline-flex; align-items: center;
+    transition: box-shadow .2s, opacity .2s;
   }
   .btn-primary:hover { box-shadow: 0 0 24px rgba(0,255,170,0.4); opacity: .92; }
-  
   .btn-outline {
     font-family: var(--mono); font-size: .65rem; padding: .75rem 1.6rem;
     border: 1px solid var(--border-bright); color: var(--muted-bright); letter-spacing: .1em;
-    transition: border-color .2s, color .2s; display: inline-flex; align-items: center;
+    transition: border-color .2s, color .2s;
   }
-  .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow-soft); }
-  
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
   .contact-email {
     font-family: var(--mono); font-size: .68rem;
     color: var(--accent); border: 1px solid var(--accent);
@@ -789,27 +785,6 @@ int bfs_solver(int **maze, int rows, int cols)
   </div>
 </section>
 
-<!-- ── CONTACT (RESTAURÉ) ── -->
-<section id="contact">
-  <div class="contact-wrap fade-in">
-    <div>
-      <p class="contact-label">// Connect Node</p>
-      <h2 class="contact-heading">Get In Touch</h2>
-      <p class="contact-sub">Open for internships, technical discussions, or core architecture setups.</p>
-      <p class="contact-address">Location: Barcelona, Catalonia, Spain</p>
-    </div>
-    <div class="contact-links">
-      <a href="mailto:armand.lixon@epitech.eu" class="contact-email">armand.lixon@epitech.eu</a>
-      <div class="contact-row">
-        <!-- Remplacer le # par le chemin de ton fichier de CV (ex: /cv.pdf) -->
-        <a href="#" download class="btn-primary">[ DOWNLOAD CV ]</a>
-        <a href="https://www.linkedin.com/in/armand-lixon-313654294/" target="_blank" class="btn-outline">[ LINKEDIN ]</a>
-        <a href="https://github.com/ArmandLIX" target="_blank" class="btn-outline">[ GITHUB ]</a>
-      </div>
-    </div>
-  </div>
-</section>
-
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal-box">
     <button class="modal-close" onclick="setModalState(false)">[ CLOSE ]</button>
@@ -829,11 +804,12 @@ int bfs_solver(int **maze, int rows, int cols)
   );
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  // ── MULTILAYER PARALLAX ──
+  // ── MULTILAYER PARALLAX (requestAnimationFrame pour fluidité) ──
   const bgCode    = document.getElementById('bg-code-layer');
   const terminal  = document.getElementById('parallax-terminal');
   const photo     = document.getElementById('parallax-photo');
 
+  let lastScroll = 0;
   let rafPending = false;
 
   function applyParallax() {
@@ -855,50 +831,43 @@ int bfs_solver(int **maze, int rows, int cols)
       rafPending = true;
       requestAnimationFrame(applyParallax);
     }
+  }, { passive: true });
+
+  // Init
+  applyParallax();
+
+  // ── CAROUSEL ──
+  const carousel = document.getElementById('carousel');
+
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    const card = carousel.querySelector('.project-card');
+    const gap  = parseFloat(getComputedStyle(carousel).gap) || 0;
+    carousel.scrollBy({ left: card.offsetWidth + gap, behavior: 'smooth' });
+  });
+  document.getElementById('prevBtn').addEventListener('click', () => {
+    const card = carousel.querySelector('.project-card');
+    const gap  = parseFloat(getComputedStyle(carousel).gap) || 0;
+    carousel.scrollBy({ left: -(card.offsetWidth + gap), behavior: 'smooth' });
   });
 
-  // ── CAROUSEL ENGINE ──
-  const carousel = document.getElementById('carousel');
-  const prevBtn  = document.getElementById('prevBtn');
-  const nextBtn  = document.getElementById('nextBtn');
+  // ── MODAL ──
+  const overlay = document.getElementById('modalOverlay');
+  const mTitle  = document.getElementById('modalTitle');
+  const mBody   = document.getElementById('modalBody');
+  const mImg    = document.getElementById('modalImg');
 
-  if (carousel && prevBtn && nextBtn) {
-    prevBtn.addEventListener('click', () => {
-      carousel.scrollBy({ left: -400, behavior: 'smooth' });
-    });
-    nextBtn.addEventListener('click', () => {
-      carousel.scrollBy({ left: 400, behavior: 'smooth' });
-    });
-  }
-
-  // ── MODAL ENGINE ──
-  const modalOverlay = document.getElementById('modalOverlay');
-  const modalImg     = document.getElementById('modalImg');
-  const modalTitle   = document.getElementById('modalTitle');
-  const modalBody    = document.getElementById('modalBody');
-
-  function setModalState(isOpen) {
-    if (isOpen) {
-      modalOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    } else {
-      modalOverlay.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-  }
-
-  function expandProject(title, imgSrc, technicalDetails) {
-    modalTitle.textContent = title;
-    modalImg.src = imgSrc;
-    modalBody.textContent = technicalDetails;
+  function expandProject(title, imgSrc, details) {
+    mTitle.innerText = `> ${title} — System_Logs`;
+    mImg.src = imgSrc;
+    mBody.innerText = details;
     setModalState(true);
   }
-
-  function closeModal(event) {
-    if (event.target === modalOverlay) {
-      setModalState(false);
-    }
+  function setModalState(active) {
+    overlay.classList.toggle('active', active);
+  }
+  function closeModal(e) {
+    if (e.target === overlay) setModalState(false);
   }
 </script>
 </body>
-</html>
+</html> 
